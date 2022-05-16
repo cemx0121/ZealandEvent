@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body style="background-color:#fff387;">
+<body style="background-color:#fff387; font-family: Tahoma, sans-serif;">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light div-2 box-shadow mb-3" style="color:white">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light div-2 box-shadow mb-3" style="background-color:white">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="/Billeder/Zealand_logo_black_RGB_1600px_72dpi.png" alt="HTML5 Icon" style="width:40px;"></a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="/Billeder/Zealand_logo_black_RGB_1600px_72dpi.png" alt="HTML5 Icon" style="width:70px;"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,13 +25,13 @@
                         @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
                         {
                             <li class="nav-item">
-                                <a class="forsidetekst nav-link text-dark" asp-area="" asp-page="/Arrangementer/Index">Admin Værktøj</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Arrangementer/Index">Admin Værktøj</a>
                             </li>
                         }
                         @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Guest)
                         {
                             <li class="nav-item">
-                                <a class="forsidetekst nav-link text-dark" asp-area="" asp-page="/Bookings/MyBookings">Mine bookinger</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Bookings/MyBookings">Mine bookinger</a>
                             </li>
                         }
                     </ul>
@@ -40,10 +40,10 @@
                             if (Login.LoginModel.LoggedInUser == null)
                             {
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Login">Log in</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Login/Login">Log in</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Register/Register">Opret</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Register/Register">Opret</a>
                                 </li>
                             }
                             else
@@ -52,7 +52,7 @@
                                     Hej @Login.LoginModel.LoggedInUser.UserName
                                 </li>
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Logout">Log ud</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Login/Logout">Log ud</a>
                                 </li>
                             }
                         }
