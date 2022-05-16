@@ -1,20 +1,11 @@
 ﻿@page
-@model ZealandEvent.Pages.Arrangementer.GuestlistModel
+@model ZealandEvent.Pages.Bookings.MyBookingsModel
 @{
 }
 
-<h3>Tilmeldingsliste - @Model.Arrangement.Name</h3>
-<h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
+<h3>Mine bookinger</h3>
 <div>
     <hr />
-    @if (Model.AntalTilmeldte < 100)
-    {
-        <h5 style="color:red">Antal tilmeldte: @Model.AntalTilmeldte</h5>
-    }
-    else
-    {
-        <h5 style="color:green">Antal tilmeldte: @Model.AntalTilmeldte</h5>
-    }
     <table class="table">
         <thead>
             <tr>
@@ -29,6 +20,12 @@
                 </th>
                 <th>
                     Parkering
+                </th>
+                <th>
+                    Arrangement
+                </th>
+                <th>
+                    Dato
                 </th>
             </tr>
         </thead>
@@ -67,15 +64,15 @@
                 {
                     <td>Ja</td>
                 }
+                <td>@b.Arrangement.Name</td>
+                <td>@b.Arrangement.Date.ToShortDateString()</td>
+                <td>
+                    <a class="btn" type="button" asp-page="./Delete" asp-route-id="@b.BookingId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
             </tr>
             }
         </tbody>
     </table>
 </div>
-
-@if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
-{
-    <div>
-        <a asp-page="./Index">Tilbage til arrangement oversigten</a>
-    </div>
-}

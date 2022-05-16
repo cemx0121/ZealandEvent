@@ -40,7 +40,14 @@
 <div class="card">
     <h1>@a.Name</h1>
     <p class="price">@a.Date.ToShortDateString()</p>
-    <p>@a.Adress</p>
+        @if (a.Department == 0)
+        {
+             <p>Zealand - Roskilde</p>
+        }
+        else
+        {
+            <p>Zealand - Næstved</p>
+        }
     <a asp-page="/Arrangementer/Details" asp-route-id="@a.ArrangementId"><p><button>Se dagens program</button></p></a>
 </div>
 }

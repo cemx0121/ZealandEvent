@@ -20,15 +20,20 @@ namespace ZealandEvent.Pages.Bookings
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet(int? id)
         {
-        ViewData["ArrangementId"] = new SelectList(_context.Arrangements, "ArrangementId", "Name");
+            Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             return Page();
         }
 
+      
+
+
         [BindProperty]
         public Booking Booking { get; set; }
-        public List<Booking> Bookings { get; set; }
+        public Arrangement Arrangement { get; set; }
+        public List<Booking> AntalBookinger { get; set; }
+        public List<Booking> AntalParkeringer { get; set; }
         public string Message { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -38,21 +43,36 @@ namespace ZealandEvent.Pages.Bookings
             {
                 return Page();
             }
+           
+            Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
+            Booking.ArrangementId = Arrangement.ArrangementId;
 
-            Bookings = await _context.Bookings
+            /// Tæller hvor mange bookinger der er til arrangementet, tæller dem og tildeler dem til en int
+            AntalBookinger = await _context.Bookings
     .Include(a => a.Arrangement).Where(b => b.ArrangementId == id).ToListAsync();
-            int noOfBookings = Bookings.Count();
-            if (noOfBookings < 500)
+            int noOfBookings = AntalBookinger.Count();
+
+            /// Tæller hvor mange bookinger der har takket ja til parkering, tæller dem og tildeler dem til en int
+            AntalParkeringer = await _context.Bookings
+    .Include(a => a.Arrangement).Where(b => b.Parking == true && b.ArrangementId == id).ToListAsync();
+            int noOfParkings = AntalParkeringer.Count();
+
+            if (noOfBookings > 500)
             {
-                _context.Bookings.Add(Booking);
-                await _context.SaveChangesAsync();
+                Message = "Dette arrangement er desværre fuldt booket!";
+                return Page();
+            }
+            else if (noOfParkings > 90 && Booking.Parking == true)
+            {
+                Message = "Dette arrangements p-pladser er desværre fuldt booket";
+                return Page();
             }
             else
             {
-                Message = "Dette arrangement er fuldt booket.";
-                return Page();
+                Booking.UserId = Login.LoginModel.LoggedInUser.UserId;
+                _context.Bookings.Add(Booking);
+                await _context.SaveChangesAsync();
             }
-
             return RedirectToPage("./BookingConfirmation");
         }
     }

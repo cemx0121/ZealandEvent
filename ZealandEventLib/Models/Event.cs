@@ -11,18 +11,14 @@ namespace ZealandEventLib.Models
     public enum Location { Spiseteltet, Musikteltet, Tribunen}
     public partial class Event
     {
-
         [Key]
         [Column("Event_ID")]
         public int EventId { get; set; }
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Title { get; set; }
-        [Required]
-        [StringLength(300)]
-        public string Description { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime Start { get; set; }
         [Column(TypeName = "datetime")]

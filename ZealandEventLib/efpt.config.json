@@ -26,10 +26,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Parking]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Users]",
          "ObjectType": 0
       }

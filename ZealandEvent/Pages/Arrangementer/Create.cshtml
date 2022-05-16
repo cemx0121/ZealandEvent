@@ -18,9 +18,11 @@
                 <span asp-validation-for="Arrangement.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Arrangement.Adress" class="control-label">Adresse</label>
-                <input asp-for="Arrangement.Adress" class="form-control" />
-                <span asp-validation-for="Arrangement.Adress" class="text-danger"></span>
+                <label asp-for="Arrangement.Department" class="control-label">Afdeling</label>
+                <select name="Arrangement.Department" asp-for="Arrangement.Department" class="form-control">
+                    <option value="0">Zealand - Roskilde</option>
+                    <option value="1">Zealand - Næstved</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Arrangement.Date" class="control-label">Dato</label>

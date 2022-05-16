@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-color:#fff387;">
     <header>
@@ -27,25 +28,31 @@
                                 <a class="forsidetekst nav-link text-dark" asp-area="" asp-page="/Arrangementer/Index">Admin Værktøj</a>
                             </li>
                         }
+                        @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Guest)
+                        {
+                            <li class="nav-item">
+                                <a class="forsidetekst nav-link text-dark" asp-area="" asp-page="/Bookings/MyBookings">Mine bookinger</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav">
                         @{
                             if (Login.LoginModel.LoggedInUser == null)
                             {
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Login">Login</a>
+                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Login">Log in</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Register/Register">Register</a>
+                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Register/Register">Opret</a>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item nav-link mr-3">
-                                    User: @Login.LoginModel.LoggedInUser.UserName
+                                    Hej @Login.LoginModel.LoggedInUser.UserName
                                 </li>
                                 <li class="nav-item">
-                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Logout">Logout</a>
+                                    <a class="forsidetekst nav-link" asp-area="" asp-page="/Login/Logout">Log ud</a>
                                 </li>
                             }
                         }
