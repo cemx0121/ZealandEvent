@@ -1,0 +1,71 @@
+﻿@page
+@model ZealandEvent.Pages.Arrangementer.DetailsModel
+
+@{
+    ViewData["Title"] = "Dagens program";
+}
+
+<h3>Dagens program - @Model.Arrangement.Name</h3>
+
+<div>
+    <h4>@Model.Arrangement.Adress | @Model.Arrangement.Date.ToShortDateString()</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Beskrivelse
+                </th>
+                <th>
+                    Tidspunkt
+                </th>
+                <th>
+                    Lokation
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.Events)
+            {
+
+            <tr>
+                <td>@e.Title</td>
+                <td>@e.Description</td>
+                <td>@e.Start.ToShortTimeString() til @e.End.ToShortTimeString()</td>
+                <td>@e.Location</td>
+                @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
+                { 
+                    <td>
+                        <a class="btn" type="button" asp-page="/Events/Edit" asp-route-id="@e.EventId">
+                            <i class="fa fa-edit"></i>
+                        </a> |
+                        <a class="btn" type="button" asp-page="/Events/Delete" asp-route-id="@e.EventId">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                }
+            </tr>
+
+
+            }
+        </tbody>
+    </table>
+    </div>
+
+    @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
+    {
+    <div>
+        <a asp-page="./Index">Tilbage til arrangement oversigten</a>
+    </div>
+      }
+      else
+      {
+     <div>
+    <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId">Tilmeld dig til arrangmentet</a> |
+    <a asp-page="/Index">Tilbage til arrangementerne</a>
+     </div>
+      }
+        

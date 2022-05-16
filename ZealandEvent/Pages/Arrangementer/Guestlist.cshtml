@@ -1,0 +1,70 @@
+﻿@page
+@model ZealandEvent.Pages.Arrangementer.GuestlistModel
+@{
+}
+
+<h3>Tilmeldingsliste - @Model.Arrangement.Name</h3>
+<h4>@Model.Arrangement.Adress | @Model.Arrangement.Date.ToShortDateString()</h4>
+<div>
+    <hr />
+    @if (Model.AntalTilmeldte < 100)
+    {
+        <h5 style="color:red">Antal tilmeldte: @Model.AntalTilmeldte</h5>
+    }
+    else
+    {
+        <h5 style="color:green">Antal tilmeldte: @Model.AntalTilmeldte</h5>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <th>
+                    Telefon
+                </th>
+                <th>
+                    VIP
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model.Bookings)
+            {
+
+                <tr>
+                    <td>@b.Firstname @b.Lastname</td>
+                    <td>@b.Phone</td>
+                    @if (b.Vip == 0)
+                    {
+                        <td>Nej</td>
+                    }
+                    @if (b.Vip == 1)
+                    {
+                        <td>Ja</td>
+                    }
+                    @if (b.Vip == 2)
+                    {
+                        <td>Ja & Champagne</td>
+                    }
+                    @if (b.Vip == 3)
+                    {
+                        <td>Ja & Champagne+Normal</td>
+                    }
+                    @if (b.Vip == 4)
+                    {
+                        <td>Ja & Champagne+Vegansk</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
+{
+    <div>
+        <a asp-page="./Index">Tilbage til arrangement oversigten</a>
+    </div>
+}

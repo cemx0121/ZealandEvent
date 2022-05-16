@@ -1,0 +1,57 @@
+﻿@page
+@model ZealandEvent.Pages.Arrangementer.IndexModel
+
+@{
+    ViewData["Title"] = "Arrangement oversigt";
+}
+
+<h1>Arrangement oversigt for håndtering</h1>
+
+<p>
+    <a asp-page="Create">Opret et nyt arrangement</a> | <a asp-page="../Events/Create">Opret et nyt event</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Navn
+            </th>
+            <th>
+                Adresse
+            </th>
+            <th>
+                Dato
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Arrangement) {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Adress
+            </td>
+            <td>
+                @item.Date.ToShortDateString()
+            </td>
+            <td>
+                <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-edit"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-info-circle"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-address-book"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

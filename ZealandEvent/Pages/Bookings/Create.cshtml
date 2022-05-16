@@ -1,0 +1,60 @@
+﻿@page
+@model ZealandEvent.Pages.Bookings.CreateModel
+
+@{
+    ViewData["Title"] = "Tilmeld til arrangement";
+}
+
+<h3>Udfyld oplysninger for at registrere dig som gæst til et arrangement.</h3>
+<hr />
+<div>
+    @Model.Message
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Booking.ArrangementId" class="control-label">Hvilket arrangement vil du deltage til?</label>
+                <select asp-for="Booking.ArrangementId" class="form-control" asp-items="ViewBag.ArrangementId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Firstname" class="control-label">Fornavn</label>
+                <input asp-for="Booking.Firstname" class="form-control" />
+                <span asp-validation-for="Booking.Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Lastname" class="control-label">Efternavn</label>
+                <input asp-for="Booking.Lastname" class="form-control" />
+                <span asp-validation-for="Booking.Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Phone" class="control-label">Telefon nummer</label>
+                <input asp-for="Booking.Phone" class="form-control" />
+                <span asp-validation-for="Booking.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Zealand tilbyder vores gæster en plads i vores VIP-Lounge på 2 sal, hvor der er mulighed for at tilvælge en frokostmenu.</p>
+                <label asp-for="Booking.Vip" class="control-label">Ønsker du at booke en plads i VIP-Loungen?</label>
+                <select name="Booking.Vip" asp-for="Booking.Vip" class="form-control">
+                    <option value="0">Nej tak</option>
+                    <option value="1">Ja tak - 100,-DKK</option>
+                    <option value="2">Ja tak + Champagne menu - 150,-DKK</option>
+                    <option value="3">Ja tak + Champagne menu + Normal menu - 200,-DKK</option>
+                    <option value="4">Ja tak + Champagnemenu + Vegansk menu - 250,-DKK</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tilmeld" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Index">Tilbage til arrangementerne</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

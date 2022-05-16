@@ -1,0 +1,60 @@
+﻿@page
+@model ZealandEvent.Pages.Events.CreateModel
+
+@{
+    ViewData["Title"] = "Opret event";
+}
+
+<h3>Opret et nyt event til et arrangements program for dagen.</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Event.ArrangementId" class="control-label">Arrangement</label>
+                <select asp-for="Event.ArrangementId" class ="form-control" asp-items="ViewBag.ArrangementId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Title" class="control-label">Navn</label>
+                <input asp-for="Event.Title" class="form-control" />
+                <span asp-validation-for="Event.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Description" class="control-label">Beskrivelse</label>
+                <input asp-for="Event.Description" class="form-control" />
+                <span asp-validation-for="Event.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Start" class="control-label">Start</label>
+                <input asp-for="Event.Start" class="form-control" />
+                <span asp-validation-for="Event.Start" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.End" class="control-label">Slut</label>
+                <input asp-for="Event.End" class="form-control" />
+                <span asp-validation-for="Event.End" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event.Location" class="control-label">Lokation</label>
+                <select name="Event.Location" asp-for="Event.Location" class="form-control">
+                    @foreach (var location in Enum.GetValues(typeof(ZealandEventLib.Models.Location)))
+                    {
+                        <option value="@location">@location</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opret" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="../Arrangementer/Index">Tilbage til listen</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
