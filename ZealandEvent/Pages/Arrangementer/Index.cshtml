@@ -31,9 +31,14 @@
             <td>
                 @item.Name
             </td>
-            <td>
-                @item.Department
-            </td>
+                @if (item.Department == 0)
+                {
+                <td>Zealand - Roskilde</td>
+                }
+                else
+                {
+                    <td>Zealand - Næstved</td>
+                }
             <td>
                 @item.Date.ToShortDateString()
             </td>

@@ -45,6 +45,12 @@
                 </select>
             </div>
             <div class="form-group">
+                <p>Zealand tilbyder vores gæster at booke en p-plads sammen med sin tilmelding, hvis man kommer i bil. HUSK!!!! UDFYLD TOGPLAN</p>
+                <label asp-for="Booking.Parking" class="control-label">Ønsker du at booke en p-plads?</label>
+                <p>@Html.RadioButtonFor(b => b.Booking.Parking, true) Ja | @Html.RadioButtonFor(b => b.Booking.Parking, false) Nej</p>
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Tilmeld" class="btn btn-primary" />
             </div>
         </form>

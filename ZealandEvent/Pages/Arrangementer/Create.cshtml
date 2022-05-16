@@ -20,10 +20,8 @@
             <div class="form-group">
                 <label asp-for="Arrangement.Department" class="control-label">Afdeling</label>
                 <select name="Arrangement.Department" asp-for="Arrangement.Department" class="form-control">
-                    @foreach (var department in Enum.GetValues(typeof(ZealandEventLib.Models.Department)))
-                    {
-                        <option value="@department">@department</option>
-                    }
+                    <option value="0">Zealand - Roskilde</option>
+                    <option value="1">Zealand - Næstved</option>
                 </select>
             </div>
             <div class="form-group">

@@ -11,7 +11,7 @@ using ZealandEventLib.Models;
 
 namespace ZealandEvent.Pages.Bookings
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Guest")]
     public class DeleteModel : PageModel
     {
         private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
@@ -56,7 +56,7 @@ namespace ZealandEvent.Pages.Bookings
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Arrangementer/Index");
+            return RedirectToPage("./MyBookings");
         }
     }
 }
