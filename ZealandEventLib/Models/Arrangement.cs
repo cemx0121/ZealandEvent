@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ZealandEventLib.Models
 {
+    public enum Department { ZealandRoskilde, ZealandNæstved}
     [Table("Arrangement")]
     public partial class Arrangement
     {
@@ -21,11 +22,9 @@ namespace ZealandEventLib.Models
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
         [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-        [Required]
         [StringLength(100)]
-        public string Adress { get; set; }
+        public string Name { get; set; }
+        public Department Department { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; }
 

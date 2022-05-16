@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ZealandEventLib.Models
 {
-    public enum VIP { NejTak, JaTak, JaTakPlusC, JaTakPlusCogN, JaTakPlusCogV}
+    public enum VIP { NejTak, JaTak, JaTakPlusC, JaTakPlusCogN, JaTakPlusCogV }
     public partial class Booking
     {
         [Key]
@@ -26,10 +26,16 @@ namespace ZealandEventLib.Models
         [StringLength(8)]
         public string Phone { get; set; }
         [Column("VIP")]
-        public int Vip { get; set; }
+        public VIP Vip { get; set; }
+        public bool Parking { get; set; }
+        [Column("User_ID")]
+        public int UserId { get; set; }
 
         [ForeignKey(nameof(ArrangementId))]
         [InverseProperty("Bookings")]
         public virtual Arrangement Arrangement { get; set; }
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty("Bookings")]
+        public virtual User User { get; set; }
     }
 }

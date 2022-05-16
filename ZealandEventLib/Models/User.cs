@@ -11,6 +11,11 @@ namespace ZealandEventLib.Models
     public enum UserRole { Admin, Guest}
     public partial class User
     {
+        public User()
+        {
+            Bookings = new HashSet<Booking>();
+        }
+
         [Key]
         [Column("User_ID")]
         public int UserId { get; set; }
@@ -22,7 +27,10 @@ namespace ZealandEventLib.Models
         public string Password { get; set; }
         public UserRole UserRole { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Email { get; set; }
+
+        [InverseProperty(nameof(Booking.User))]
+        public virtual ICollection<Booking> Bookings { get; set; }
     }
 }

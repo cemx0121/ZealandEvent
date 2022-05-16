@@ -8,16 +8,13 @@
 <h3>Dagens program - @Model.Arrangement.Name</h3>
 
 <div>
-    <h4>@Model.Arrangement.Adress | @Model.Arrangement.Date.ToShortDateString()</h4>
+    <h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
     <hr />
     <table class="table">
         <thead>
             <tr>
                 <th>
                     Navn
-                </th>
-                <th>
-                    Beskrivelse
                 </th>
                 <th>
                     Tidspunkt
@@ -33,7 +30,6 @@
 
             <tr>
                 <td>@e.Title</td>
-                <td>@e.Description</td>
                 <td>@e.Start.ToShortTimeString() til @e.End.ToShortTimeString()</td>
                 <td>@e.Location</td>
                 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)

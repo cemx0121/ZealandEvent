@@ -23,7 +23,6 @@ namespace ZealandEventLib.Data
         public virtual DbSet<Arrangement> Arrangements { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Parking> Parkings { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -46,6 +45,12 @@ namespace ZealandEventLib.Data
                     .HasForeignKey(d => d.ArrangementId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Bookings__Arrang__07C12930");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Bookings)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Bookings__User_I__08B54D69");
             });
 
             modelBuilder.Entity<Event>(entity =>
@@ -55,12 +60,6 @@ namespace ZealandEventLib.Data
                     .HasForeignKey(d => d.ArrangementId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Events__Arrangem__7D439ABD");
-            });
-
-            modelBuilder.Entity<Parking>(entity =>
-            {
-                entity.HasKey(e => e.ParkeringId)
-                    .HasName("PK__Parking__FBDDD2E3C4D7E7EC");
             });
 
             OnModelCreatingPartial(modelBuilder);

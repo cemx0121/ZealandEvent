@@ -4,7 +4,7 @@
 }
 
 <h3>Tilmeldingsliste - @Model.Arrangement.Name</h3>
-<h4>@Model.Arrangement.Adress | @Model.Arrangement.Date.ToShortDateString()</h4>
+<h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
 <div>
     <hr />
     @if (Model.AntalTilmeldte < 100)
@@ -40,19 +40,19 @@
                     {
                         <td>Nej</td>
                     }
-                    @if (b.Vip == 1)
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTak)
                     {
                         <td>Ja</td>
                     }
-                    @if (b.Vip == 2)
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusC)
                     {
                         <td>Ja & Champagne</td>
                     }
-                    @if (b.Vip == 3)
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusCogN)
                     {
                         <td>Ja & Champagne+Normal</td>
                     }
-                    @if (b.Vip == 4)
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusCogV)
                     {
                         <td>Ja & Champagne+Vegansk</td>
                     }
