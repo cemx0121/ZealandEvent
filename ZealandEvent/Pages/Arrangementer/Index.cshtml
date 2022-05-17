@@ -26,37 +26,107 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Arrangement) {
-        <tr>
-            <td>
-                @item.Name
-            </td>
+        @foreach (var item in Model.Arrangement)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
                 @if (item.Department == 0)
                 {
-                <td>Zealand - Roskilde</td>
+                    <td>Zealand - Roskilde</td>
                 }
                 else
                 {
                     <td>Zealand - Næstved</td>
                 }
-            <td>
-                @item.Date.ToShortDateString()
-            </td>
-            <td>
-                <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-edit"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-info-circle"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-address-book"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-}
+                <td>
+                    @item.Date.ToShortDateString()
+                </td>
+                <td>
+                    <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
+                        <i class="fa fa-edit"></i>
+                    </a> |
+                    <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
+                        <i class="fa fa-info-circle"></i>
+                    </a> |
+                    <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
+                        <i class="fa fa-address-book"></i>
+                    </a> |
+                    <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<div class="row d-flex justify-content-center container">
+    <div class="col-md-8">
+        <div class="card-hover-shadow-2x mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="fa fa-tasks"></i>&nbsp;Arrangement oversigt for håndtering
+                </div>
+
+            </div>
+
+@foreach (var item in Model.Arrangement)
+{
+    <tr>
+
+            <div class="scroll-area-sm">
+                <perfect-scrollbar class="ps-show-limits">
+                    <div style="position: static;" class="ps ps--active-y">
+                        <div class="ps-content">
+                            <ul class=" list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="todo-indicator bg-warning"></div>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading" style="font-size:25px; font-family:Calibri">
+                                                    @item.Name
+                                                </div>
+                                                <div class="widget-subheading">
+                                                    <i>
+                                                        @if (item.Department == 0)
+                                                        {
+                                                        <td>Zealand - Roskilde</td>
+                                                         }
+                                                         else
+                                                         {
+                                                         <td>Zealand - Næstved</td>
+                                                         }
+                                                            </i>
+                                                  </div>
+
+                                                <div class="widget-subheading">
+                                                <td>
+                                                    @item.Date.ToShortDateString()
+                                                </td>
+                                                </div>
+                                                
+                                                 </div>
+    <div class="widget-content-right">
+        <td>
+            <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
+                <i class="fa fa-edit"></i>
+            </a> |
+            <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
+                <i class="fa fa-info-circle"></i>
+            </a> |
+            <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
+                <i class="fa fa-address-book"></i>
+            </a> |
+            <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+    </div>
+                                        </div>
+                                </div>
+                     </li>
+    </tr>
+}
