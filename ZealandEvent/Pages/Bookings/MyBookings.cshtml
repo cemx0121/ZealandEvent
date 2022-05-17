@@ -64,7 +64,8 @@
                 {
                     <td><i class="fa fa-check"></i></td>
                 }
-                <td>@b.Arrangement.Name</td>
+                <td>@b.Arrangement.Name
+                @b.Arrangement.Department</td>
                 <td>@b.Arrangement.Date.ToShortDateString()</td>
                 <td>
                     <a class="btn" type="button" asp-page="./Delete" asp-route-id="@b.BookingId">
