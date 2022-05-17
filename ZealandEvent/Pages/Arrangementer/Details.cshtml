@@ -63,7 +63,7 @@
 else if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Guest)
 {
 <div>
-    <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-calendar-plus-o" style="color:black; font-size:20px"></i></a> |
+    <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-user-plus" style="color:black; font-size:20px"></i></a> |
     <a asp-page="/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
 </div>
 }
