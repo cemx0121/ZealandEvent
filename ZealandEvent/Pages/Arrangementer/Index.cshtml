@@ -4,83 +4,9 @@
 @{
     ViewData["Title"] = "Arrangement oversigt";
 }
-<<<<<<< HEAD
-<div class="row d-flex justify-content-center container" style="width:700px; max-width:2000px; position:center">
-=======
 
-<h1>Arrangement oversigt for håndtering</h1>
-
-
-    <a asp-page="Create"><i class="fa fa-plus" style="color:black; font-size:30px"></i></a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Navn
-            </th>
-            <th>
-                Afdeling
-            </th>
-            <th>
-                Dato
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Arrangement)
-        {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            @if (item.Department == 0)
-            {
-                <td>Zealand - Roskilde</td>
-            }
-            else if (item.Department == ZealandEventLib.Models.Department.ZealandNæstved)
-            {
-                <td>Zealand - Næstved</td>
-            }
-            else if (item.Department == ZealandEventLib.Models.Department.ZealandSlagelse)
-            {
-                <td>Zealand - Slagelse</td>
-            }
-            else if (item.Department == ZealandEventLib.Models.Department.ZealandKøge)
-            {
-                <td>Zealand - Køge</td>
-            }
-            else if (item.Department == ZealandEventLib.Models.Department.ZealandRingsted)
-            {
-                <td>Zealand - Ringsted</td>
-            }
-            else
-            {
-                <td>Zealand - Holbæk</td>
-            }
-            <td>
-                @item.Date.ToShortDateString()
-            </td>
-            <td>
-                <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-edit"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-info-circle"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-users"></i>
-                </a> |
-                <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
-                    <i class="fa fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
 <div class="row d-flex justify-content-center container">
->>>>>>> 1841ee90cae340795b1615a342b133cadd0d83d6
+
     <div class="col-md-8">
         <div class="card-hover-shadow-2x mb-3 card">
             <div class="card-header-tab card-header">
@@ -114,12 +40,28 @@
                                                                 {
                                 <td>Zealand - Roskilde</td>
                             }
-                            else
+                            else if (item.Department == ZealandEventLib.Models.Department.ZealandNæstved)
                             {
                                 <td>Zealand - Næstved</td>
                             }
+                            else if (item.Department == ZealandEventLib.Models.Department.ZealandSlagelse)
+                            {
+                                <td>Zealand - Slagelse</td>
+                            }
+                            else if (item.Department == ZealandEventLib.Models.Department.ZealandKøge)
+                            {
+                                <td>Zealand - Køge</td>
+                            }
+                            else if (item.Department == ZealandEventLib.Models.Department.ZealandRingsted)
+                            {
+                                <td>Zealand - Ringsted</td>
+                            }
+                            else
+                            {
+                                <td>Zealand - Holbæk</td>
+                            }
                                                                 </i>
-                                                        </div>
+</div>
 
                                                         <div class="widget-subheading">
                                                         <td>
@@ -137,7 +79,7 @@
                                                         <i class="fa fa-info-circle"></i>
                                                     </a> |
                                                     <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
-                                                        <i class="fa fa-address-book"></i>
+                                                        <i class="fa fa-users"></i>
                                                     </a> |
                                                     <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
                                                         <i class="fa fa-trash"></i>
