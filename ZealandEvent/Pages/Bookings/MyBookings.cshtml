@@ -64,8 +64,30 @@
                 {
                     <td><i class="fa fa-check"></i></td>
                 }
-                <td>@b.Arrangement.Name
-                @b.Arrangement.Department</td>
+                @if (b.Arrangement.Department == 0)
+                            {
+            <td>@b.Arrangement.Name (Zealand - Roskilde)</td>
+                            }
+                            else if (b.Arrangement.Department == ZealandEventLib.Models.Department.ZealandNæstved)
+                            {
+            <td>@b.Arrangement.Name (Zealand - Næstved)</td>
+                            }
+                            else if (b.Arrangement.Department == ZealandEventLib.Models.Department.ZealandSlagelse)
+                            {
+            <td>@b.Arrangement.Name (Zealand - Slagelse)</td>
+                            }
+                            else if (b.Arrangement.Department == ZealandEventLib.Models.Department.ZealandKøge)
+                            {
+            <td>@b.Arrangement.Name (Zealand - Køge)</td>
+                            }
+                            else if (b.Arrangement.Department == ZealandEventLib.Models.Department.ZealandRingsted)
+                            {
+            <td>@b.Arrangement.Name (Zealand - Ringsted)</td>
+                            }
+                            else
+                            {
+            <td>@b.Arrangement.Name (Zealand - Holbæk)</td>
+                            }
                 <td>@b.Arrangement.Date.ToShortDateString()</td>
                 <td>
                     <a class="btn" type="button" asp-page="./Delete" asp-route-id="@b.BookingId">

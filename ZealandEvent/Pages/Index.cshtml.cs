@@ -19,14 +19,14 @@ namespace ZealandEvent.Pages
             _context = context;
         }
 
-        public IList<Arrangement> Arrangement { get; set; }
-        public IList<Event> Event { get; set; }
+        public List<Arrangement> Arrangement { get; set; }
+        
 
         public async Task OnGetAsync()
         {
             Arrangement = await _context.Arrangements.ToListAsync();
-            Event = await _context.Events
-    .Include(a => a.Arrangement).ToListAsync();
+            Arrangement.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
+
         }
     }
 }

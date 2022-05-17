@@ -21,11 +21,12 @@ namespace ZealandEvent.Pages.Arrangementer
             _context = context;
         }
 
-        public IList<Arrangement> Arrangement { get;set; }
+        public List<Arrangement> Arrangement { get;set; }
 
         public async Task OnGetAsync()
         {
             Arrangement = await _context.Arrangements.ToListAsync();
+            Arrangement.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
         }
     }
 }
