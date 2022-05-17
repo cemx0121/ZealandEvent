@@ -251,7 +251,7 @@
                 <li>
                     <time datetime="@a.Date.ToShortDateString()" style="background-color: black; color: #fff387">
                         <span class="day">@a.Date.Day</span>
-                        <span class="month">@a.Date.Month</span>
+                        <span class="month">@a.Date.ToString("MMM").Remove(3)</span>
                         <span class="year">@a.Date.Year</span>
                     </time>
                     <div class="info">
