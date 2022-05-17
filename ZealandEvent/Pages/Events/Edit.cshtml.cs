@@ -53,6 +53,8 @@ namespace ZealandEvent.Pages.Events
             }
 
             _context.Attach(Event).State = EntityState.Modified;
+            Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
+            Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
 
             try
             {

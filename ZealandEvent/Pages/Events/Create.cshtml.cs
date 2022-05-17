@@ -45,7 +45,9 @@ namespace ZealandEvent.Pages.Events
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             Event.ArrangementId = Arrangement.ArrangementId;
-            
+            Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
+            Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
+
             // IKKE FÆRDIGT
             EventAlreadyExist = await _context.Events.Where(e => 
             e.ArrangementId == Event.ArrangementId && 
