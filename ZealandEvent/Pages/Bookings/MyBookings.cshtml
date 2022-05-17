@@ -58,11 +58,11 @@
                 }
                 @if (b.Parking == false)
                 {
-                    <td>Nej</td>
+                    <td></td>
                 }
                 @if (b.Parking == true)
                 {
-                    <td>Ja</td>
+                    <td><i class="fa fa-check"></i></td>
                 }
                 <td>@b.Arrangement.Name</td>
                 <td>@b.Arrangement.Date.ToShortDateString()</td>

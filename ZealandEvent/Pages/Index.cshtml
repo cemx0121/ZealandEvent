@@ -232,40 +232,45 @@
         }
 </style>
 
-<hr/>
+<div class="text-center">
+    <h3>Velkommen til Zealand-Event</h3>
+    <p>Bla bla bla</p>
+</div>
 
-@foreach (var a in Model.Arrangement)
-{
-    
-    <div class="container" style="width: 450px;">
-
-        <div>
-            <ul class="event-list">
-                <li>
-                    <time datetime="@a.Date.ToShortDateString()" style="background-color:#fff387;">
-                        <span class="day">@a.Date.Day</span>
-                        <span class="month">@a.Date.Month</span>
-                        <span class="year">@a.Date.Year</span>
-                    </time>
-                    <div class="info">
-                        <h2 class="title">@a.Name</h2>
-
-                        @if (a.Department == 0)
-                        {
-                            <p class="desc">Zealand - Roskilde</p>
-                        }
-                        else
-                        {
-                            <p class="desc">Zealand - Næstved</p>
-                        }
-                        <a style="text-align:center" asp-page="/Arrangementer/Details" asp-route-id="@a.ArrangementId"><p><button>Se dagens program</button></p></a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
     <hr />
-}
+
+    @foreach (var a in Model.Arrangement)
+    {
+
+        <div class="container" style="width: 450px;">
+
+            <div>
+                <ul class="event-list">
+                    <li>
+                        <time datetime="@a.Date.ToShortDateString()" style="background-color:#fff387;">
+                            <span class="day">@a.Date.Day</span>
+                            <span class="month">@a.Date.Month</span>
+                            <span class="year">@a.Date.Year</span>
+                        </time>
+                        <div class="info">
+                            <h2 class="title">@a.Name</h2>
+
+                            @if (a.Department == 0)
+                            {
+                                <p class="desc">Zealand - Roskilde</p>
+                            }
+                            else
+                            {
+                                <p class="desc">Zealand - Næstved</p>
+                            }
+                            <a style="text-align:center" asp-page="/Arrangementer/Details" asp-route-id="@a.ArrangementId"><p><button>Se dagens program</button></p></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+    }
 
 
 

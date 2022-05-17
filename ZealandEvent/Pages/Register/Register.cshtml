@@ -7,22 +7,23 @@
           <form method="post" style="width:600px;">
               <div class="form-group; container1">
                   <hr>
-                      <label>Username</label>
-                      <input type="text" asp-for="User.UserName" placeholder="Indtast din Username"/>
-                      <span asp-validation-for="User.UserName" class="alert-warning"></span>
-                      
+                  <label>Brugernavn</label>
+                  <input type="text" asp-for="User.UserName" placeholder="Indtast dit ønsket brugernavn" />
+                  <span asp-validation-for="User.UserName" class="alert-warning"></span>
 
-                 
-                      <label>Password</label>
-                      <input type="password" asp-for="User.Password" placeholder="Indtast dit Password"/>
-                      <span asp-validation-for="User.Password" class="alert-warning"></span>
+
+
+                  <label>Kodeord</label>
+                  <input type="password" asp-for="User.Password" placeholder="Indtast dit ønsket kodeord" />
+                  <span asp-validation-for="User.Password" class="alert-warning"></span>
+
+
+                  <label>Email</label>
+                  <input type="text" asp-for="User.Email" placeholder="Indtast din E-mail" />
+                  <span asp-validation-for="User.Email" class="alert-warning"></span>
+
+                  <button type="submit" class="registerbtn" style="width:100px; background-color:green; color:white;">Opret</button>
                   
-               
-                      <label>Email</label>
-                      <input type="text" asp-for="User.Email" placeholder="Indtast din E-mail" />
-                      <span asp-validation-for="User.Email" class="alert-warning"></span>
-                  
-                      <button type="submit" class="registerbtn" style="width:200px;">Opret</button>
               </div>
          </form>
     </div>

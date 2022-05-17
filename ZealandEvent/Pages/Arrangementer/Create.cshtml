@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Arrangement.Name" class="control-label">Navn</label>
-                <input asp-for="Arrangement.Name" class="form-control" />
+                <input asp-for="Arrangement.Name" class="form-control" placeholder="Arrangement navn" />
                 <span asp-validation-for="Arrangement.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,14 +30,11 @@
                 <span asp-validation-for="Arrangement.Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Opret" class="btn btn-primary" />
+                <input style="background-color:green; color:white" type="submit" value="Opret" class="btn btn-primary" /> |
+                <a asp-page="Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Tilbage til listen</a>
 </div>
 
 @section Scripts {

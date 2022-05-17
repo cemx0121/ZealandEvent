@@ -61,11 +61,11 @@
                 }
                 @if (b.Parking == false)
                 {
-                    <td>Nej</td>
+                    <td></td>
                 }
                 @if (b.Parking == true)
                 {
-                    <td>Ja</td>
+                    <td><i class="fa fa-check"></i></td>
                 }
             </tr>
             }
@@ -75,7 +75,7 @@
 
 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
 {
-    <div>
-        <a asp-page="./Index">Tilbage til arrangement oversigten</a>
-    </div>
+<div>
+    <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+</div>
 }

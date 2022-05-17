@@ -5,7 +5,7 @@
     ViewData["Title"] = "Opret event";
 }
 
-<h3>Opret et nyt event til et arrangements program for dagen.</h3>
+<h3>Opret et nyt event til @Model.Arrangement.Name's program for dagen.</h3>
 <hr />
 <div>
     <h5 style="color:red">@Model.Message</h5>
@@ -39,14 +39,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Opret" class="btn btn-primary" />
+                <input style="background-color:green; color:white" type="submit" value="Opret" class="btn btn-primary" /> |
+                <a asp-page="../Arrangementer/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="../Arrangementer/Index">Tilbage til listen</a>
 </div>
 
 @section Scripts {

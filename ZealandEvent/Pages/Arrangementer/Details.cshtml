@@ -11,7 +11,7 @@
     <h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
     @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
     {
-        <a asp-page="../Events/Create" asp-route-id="@Model.Arrangement.ArrangementId">Opret et nyt event til dagens program</a>
+<a asp-page="../Events/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-plus" style="color:black; font-size:30px"></i></a>
     }
         <table class="table">
             <thead>
@@ -56,22 +56,22 @@
 
 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
 {
-    <div>
-        <a asp-page="./Index">Tilbage til arrangement oversigten</a>
-    </div>
+<div>
+    <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+</div>
 }
 else if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Guest)
 {
-    <div>
-        <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId">Tilmeld dig til arrangmentet</a> |
-        <a asp-page="/Index">Tilbage til arrangementerne</a>
-    </div>
+<div>
+    <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-calendar-plus-o" style="color:black; font-size:20px"></i></a> |
+    <a asp-page="/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+</div>
 }
 else
 {
 <div>
-    <p>Du skal være logget ind for at booke en plads til arrangementet</p>
-    <a asp-page="/Index">Tilbage til arrangementerne</a>
+    <p style="color:red">Du skal være logget ind for at booke en plads til arrangementet</p>
+    <a asp-page="/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
 </div>
 }
 
