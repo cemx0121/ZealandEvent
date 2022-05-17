@@ -7,14 +7,13 @@
 
 <h3>Opret et nyt event til et arrangements program for dagen.</h3>
 <hr />
+<div>
+    <h5 style="color:red">@Model.Message</h5>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Event.ArrangementId" class="control-label">Arrangement</label>
-                <select asp-for="Event.ArrangementId" class ="form-control" asp-items="ViewBag.ArrangementId"></select>
-            </div>
             <div class="form-group">
                 <label asp-for="Event.Title" class="control-label">Navn</label>
                 <input asp-for="Event.Title" class="form-control" />
