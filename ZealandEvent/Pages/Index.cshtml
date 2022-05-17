@@ -256,16 +256,32 @@
                     <div class="info">
                         <h2 class="title">@a.Name</h2>
 
-                            @if (a.Department == 0)
-                            {
-                                <p class="desc">Zealand - Roskilde</p>
-                            }
-                            else
-                            {
+                        @if (a.Department == 0)
+                        {
+                            <p class="desc">Zealand - Roskilde</p>
+                        }
+                        else if (a.Department == ZealandEventLib.Models.Department.ZealandNæstved)
+                        {
                                 <p class="desc">Zealand - Næstved</p>
-                            }
-                            <a style="text-align:center" asp-page="/Arrangementer/Details" asp-route-id="@a.ArrangementId"><p><button>Se dagens program</button></p></a>
-                        </div>
+                        }
+                        else if (a.Department == ZealandEventLib.Models.Department.ZealandSlagelse)
+                        {
+                                <p class="desc">Zealand - Slagelse</p>
+                        }
+                        else if (a.Department == ZealandEventLib.Models.Department.ZealandKøge)
+                        {
+                                <p class="desc">Zealand - Køge</p>
+                        }
+                        else if (a.Department == ZealandEventLib.Models.Department.ZealandRingsted)
+                        {
+                                <p class="desc">Zealand - Ringsted</p>
+                        }
+                        else
+                        {
+                                <p class="desc">Zealand - Holbæk</p>
+                        }
+                        <a style="text-align:center" asp-page="/Arrangementer/Details" asp-route-id="@a.ArrangementId"><p><button>Se dagens program</button></p></a>
+                    </div>
                     </li>
                 </ul>
             </div>

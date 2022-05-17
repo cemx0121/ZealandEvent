@@ -12,7 +12,11 @@ namespace ZealandEventLib.Models
     public enum Department 
     {
         ZealandRoskilde,
-        ZealandNæstved
+        ZealandNæstved,
+        ZealandSlagelse,
+        ZealandKøge,
+        ZealandRingsted,
+        ZealandHolbæk
     }
     [Table("Arrangement")]
     public partial class Arrangement

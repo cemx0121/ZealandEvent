@@ -27,36 +27,52 @@
     <tbody>
         @foreach (var item in Model.Arrangement)
         {
-            <tr>
-                <td>
-                    @item.Name
-                </td>
-                @if (item.Department == 0)
-                {
-                    <td>Zealand - Roskilde</td>
-                }
-                else
-                {
-                    <td>Zealand - Næstved</td>
-                }
-                <td>
-                    @item.Date.ToShortDateString()
-                </td>
-                <td>
-                    <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
-                        <i class="fa fa-edit"></i>
-                    </a> |
-                    <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
-                        <i class="fa fa-info-circle"></i>
-                    </a> |
-                    <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
-                        <i class="fa fa-address-book"></i>
-                    </a> |
-                    <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
-                        <i class="fa fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            @if (item.Department == 0)
+            {
+                <td>Zealand - Roskilde</td>
+            }
+            else if (item.Department == ZealandEventLib.Models.Department.ZealandNæstved)
+            {
+                <td>Zealand - Næstved</td>
+            }
+            else if (item.Department == ZealandEventLib.Models.Department.ZealandSlagelse)
+            {
+                <td>Zealand - Slagelse</td>
+            }
+            else if (item.Department == ZealandEventLib.Models.Department.ZealandKøge)
+            {
+                <td>Zealand - Køge</td>
+            }
+            else if (item.Department == ZealandEventLib.Models.Department.ZealandRingsted)
+            {
+                <td>Zealand - Ringsted</td>
+            }
+            else
+            {
+                <td>Zealand - Holbæk</td>
+            }
+            <td>
+                @item.Date.ToShortDateString()
+            </td>
+            <td>
+                <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-edit"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Details" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-info-circle"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Guestlist" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-users"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.ArrangementId">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
