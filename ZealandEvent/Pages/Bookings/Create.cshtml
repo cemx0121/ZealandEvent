@@ -41,7 +41,11 @@
                     <option value="4">Ja tak + Champagnemenu + Vegansk menu - 250,-DKK</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div>
+                
+                <img src="/Billeder/tog afgange.PNG" style="width:450px; padding-top:50px;">
+            </div>
+            <div class="form-group" style="padding-top:50px;">
                 <p>Zealand tilbyder vores gæster at booke en p-plads sammen med sin tilmelding, hvis man kommer i bil. HUSK!!!! UDFYLD TOGPLAN</p>
                 <label asp-for="Booking.Parking" class="control-label">Ønsker du at booke en p-plads?</label>
                 <p>@Html.RadioButtonFor(b => b.Booking.Parking, true) Ja | @Html.RadioButtonFor(b => b.Booking.Parking, false) Nej</p>
