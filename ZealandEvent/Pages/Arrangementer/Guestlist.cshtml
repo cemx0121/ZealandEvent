@@ -47,17 +47,21 @@
                 {
                     <td>Ja</td>
                 }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusC)
+                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusN)
                 {
-                    <td>Ja & Champagne Menu</td>
+                    <td>Ja & Normal Menu</td>
                 }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusCogN)
+                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusV)
                 {
-                    <td>Ja & Champagne Menu+Normal Menu</td>
+                    <td>Ja & Vegansk Menu</td>
                 }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusCogV)
+                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusNOgC)
                 {
-                    <td>Ja & Champagne Menu+Vegansk Menu</td>
+                    <td>Ja & Normal Menu + Champagne Menu</td>
+                }
+                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusVOgC)
+                {
+                    <td>Ja & Vegansk Menu + Champagne Menu</td>
                 }
                 @if (b.Parking == false)
                 {

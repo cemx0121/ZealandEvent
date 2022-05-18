@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ZealandEventLib.Models
 {
-    public enum VIP { NejTak, JaTak, JaTakPlusC, JaTakPlusCogN, JaTakPlusCogV }
+    public enum VIP { NejTak, JaTak, JaTakPlusN, JaTakPlusV, JaTakPlusNOgC, JaTakPlusVOgC }
     public partial class Booking
     {
         [Key]
