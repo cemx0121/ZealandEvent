@@ -25,6 +25,9 @@ namespace ZealandEvent.Pages.Arrangementer
         public Arrangement Arrangement { get; set; }
 
         public List<Event> Events { get; set; }
+
+        public List<Booking> Bookings { get; set; }
+        public int AntalTilmeldte { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -35,7 +38,9 @@ namespace ZealandEvent.Pages.Arrangementer
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             Events = await _context.Events
    .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
-
+            Bookings = await _context.Bookings
+   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            AntalTilmeldte = Bookings.Count();
             if (Arrangement == null)
             {
                 return NotFound();
@@ -53,12 +58,18 @@ namespace ZealandEvent.Pages.Arrangementer
             Arrangement = await _context.Arrangements.FindAsync(id);
             Events = await _context.Events
    .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            Bookings = await _context.Bookings
+   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
 
             if (Arrangement != null)
             {
                 foreach (var e in Events)
                 {
                     _context.Events.Remove(e);
+                }
+                foreach (var b in Bookings)
+                {
+                    _context.Bookings.Remove(b);
                 }
                 _context.Arrangements.Remove(Arrangement);
                 await _context.SaveChangesAsync();

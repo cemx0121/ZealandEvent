@@ -4,11 +4,12 @@
 @{
     ViewData["Title"] = "Slet arrangement";
 }
-<h2 style="color:red">ADVARSEL: Når du sletter et arrangement, vil alle events der hører til det arrangement også blive slettet!</h2>
-<h3>Er du sikker på du vil slette dette arrangement samt de events der hører til?</h3>
+<h2 style="color:red">ADVARSEL: Når du sletter et arrangement, vil alle events & bookinger der hører til det arrangement også blive slettet!</h2>
+<h3>Er du sikker på du vil slette dette arrangement samt de events & bookinger der hører til?</h3>
 <div>
     <hr />
     <h4>Arrangement:</h4>
+    <h5 style="color:red">Antal tilmeldte = @Model.AntalTilmeldte</h5>
     <dl class="row">
         <dt class="col-sm-2">
             Navn
@@ -32,31 +33,31 @@
     @foreach (var e in Model.Events)
     {
         <h5>Event</h5>
-<dl class="row">
-    <dt class="col-sm-2">
-        Navn
-    </dt>
-    <dd class="col-sm-10">
-        @e.Title
-    </dd>
-    <dt class="col-sm-2">
-        Dato
-    </dt>
-    <dd class="col-sm-10">
-        @e.Start.ToShortTimeString() til @e.End.ToShortTimeString()
-    </dd>
-    <dt class="col-sm-2">
-        Lokation
-    </dt>
-    <dd class="col-sm-10">
-        @e.Location
-    </dd>
-</dl>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Navn
+            </dt>
+            <dd class="col-sm-10">
+                @e.Title
+            </dd>
+            <dt class="col-sm-2">
+                Dato
+            </dt>
+            <dd class="col-sm-10">
+                @e.Start.ToShortTimeString() til @e.End.ToShortTimeString()
+            </dd>
+            <dt class="col-sm-2">
+                Lokation
+            </dt>
+            <dd class="col-sm-10">
+                @e.Location
+            </dd>
+        </dl>
     }
 
-<form method="post">
-    <input type="hidden" asp-for="Arrangement.ArrangementId" />
-    <input type="submit" value="Slet" class="btn btn-danger" /> |
-    <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
-</form>
+    <form method="post">
+        <input type="hidden" asp-for="Arrangement.ArrangementId" />
+        <input type="submit" value="Slet" class="btn btn-danger" /> |
+        <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+    </form>
 </div>

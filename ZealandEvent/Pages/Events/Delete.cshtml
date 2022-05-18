@@ -11,31 +11,25 @@
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Event.Title)
+                Navn
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Event.Title)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Event.Start)
+                Tidspunkt
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Event.Start)
+                @Model.Event.Start.ToShortTimeString() @Model.Event.End.ToShortTimeString() 
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Event.End)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Event.End)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Event.Location)
+                Lokation
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Event.Location)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Event.Arrangement)
+                Arrangement
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Event.Arrangement.Name)

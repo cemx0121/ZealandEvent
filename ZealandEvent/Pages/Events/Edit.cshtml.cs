@@ -25,6 +25,10 @@ namespace ZealandEvent.Pages.Events
         [BindProperty]
         public Event Event { get; set; }
 
+        public Event EventAlreadyExist { get; set; }
+
+        public string Message { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -56,20 +60,37 @@ namespace ZealandEvent.Pages.Events
             Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
             Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
 
-            try
+
+            EventAlreadyExist = await _context.Events.Where(
+            e => e.ArrangementId == Event.ArrangementId &&
+            ((e.Start <= Event.Start && e.End >= Event.Start) || (e.End >= Event.End && e.Start <= Event.End)) &&
+            (Event.Location == Location.Musikteltet || Event.Location == Location.Tribunen) && (e.Location == Location.Musikteltet || e.Location == Location.Tribunen)
+            ).FirstOrDefaultAsync();
+            if (EventAlreadyExist != null)
             {
-                await _context.SaveChangesAsync();
+                Message = "Der findes allerede et event i samme tidsramme og lokation til dette arrangement! (Musikteltet & Tribunen kan ikke have et event i samme tidsramme)";
+                ViewData["ArrangementId"] = new SelectList(_context.Arrangements, "ArrangementId", "Name");
+                return Page();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!EventExists(Event.EventId))
-                {
+             
+              try
+              {
+                 
+                 await _context.SaveChangesAsync();
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                 if (!EventExists(Event.EventId))
+                 {
                     return NotFound();
-                }
-                else
-                {
+                 }
+                 else
+                 {
                     throw;
-                }
+                 }
+              }
             }
 
             return RedirectToPage("/Arrangementer/Index");
