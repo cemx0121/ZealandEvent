@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -14,11 +15,13 @@ namespace ZealandEvent.Pages.Arrangementer
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public DeleteModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public DeleteModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         [BindProperty]
@@ -36,11 +39,10 @@ namespace ZealandEvent.Pages.Arrangementer
             }
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
-            Events = await _context.Events
-   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
-            Bookings = await _context.Bookings
-   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            Events = _countService.FindEventsToArrangement(id);
+            Bookings = _countService.FindBookingsToArrangement(id);
             AntalTilmeldte = Bookings.Count();
+
             if (Arrangement == null)
             {
                 return NotFound();
@@ -56,10 +58,8 @@ namespace ZealandEvent.Pages.Arrangementer
             }
 
             Arrangement = await _context.Arrangements.FindAsync(id);
-            Events = await _context.Events
-   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
-            Bookings = await _context.Bookings
-   .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            Events = _countService.FindEventsToArrangement(id);
+            Bookings = _countService.FindBookingsToArrangement(id);
 
             if (Arrangement != null)
             {

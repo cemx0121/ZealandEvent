@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
 namespace ZealandEvent.Pages.Login
@@ -22,10 +23,10 @@ namespace ZealandEvent.Pages.Login
 
         public string Message { get; set; }
         public static User LoggedInUser { get; set; } = null;
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
 
-        public LoginModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public LoginModel(ZealandEventDBContext context)
         {
             _context = context;
         }

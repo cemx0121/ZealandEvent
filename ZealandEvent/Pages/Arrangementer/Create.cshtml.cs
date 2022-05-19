@@ -14,9 +14,9 @@ namespace ZealandEvent.Pages.Arrangementer
     [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public CreateModel(ZealandEventDBContext context)
         {
             _context = context;
         }

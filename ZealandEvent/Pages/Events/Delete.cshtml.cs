@@ -14,9 +14,9 @@ namespace ZealandEvent.Pages.Events
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public DeleteModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public DeleteModel(ZealandEventDBContext context)
         {
             _context = context;
         }

@@ -49,7 +49,6 @@ namespace ZealandEvent
             {
                 
                 options.Conventions.AuthorizeFolder("/Events");
-                options.Conventions.AuthorizeFolder("/Users");
                 options.Conventions.AuthorizeFolder("/Bookings");
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

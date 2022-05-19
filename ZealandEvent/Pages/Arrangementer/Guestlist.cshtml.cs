@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
+using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
 namespace ZealandEvent.Pages.Arrangementer
@@ -13,11 +15,13 @@ namespace ZealandEvent.Pages.Arrangementer
     [Authorize(Roles = "Admin")]
     public class GuestlistModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public GuestlistModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public GuestlistModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         public Arrangement Arrangement { get; set; }
@@ -33,8 +37,7 @@ namespace ZealandEvent.Pages.Arrangementer
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
 
-            Bookings = await _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.ArrangementId == id).ToListAsync();
+            Bookings = _countService.FindBookingsToArrangement(id);
             AntalTilmeldte = Bookings.Count();
 
 

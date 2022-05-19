@@ -14,10 +14,10 @@ namespace ZealandEvent.Pages.Bookings
 {
     public class CreateModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
-        private readonly ZealandEvent.Services.ICountService _countService;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context, ZealandEvent.Services.ICountService countService)
+        public CreateModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
             _countService = countService;

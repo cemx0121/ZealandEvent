@@ -4,22 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ZealandEvent.Services;
+using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
 namespace ZealandEvent.Pages.Register
 {
     public class RegisterModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
         [BindProperty]
         public User User { get; set; }
 
+        public string Message { get; set; }
 
 
-        public RegisterModel(ZealandEventLib.Data.ZealandEventDBContext context)
+
+        public RegisterModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
 
         }
 
@@ -34,9 +40,18 @@ namespace ZealandEvent.Pages.Register
                 return Page();
             }
             User.UserRole = UserRole.Guest;
-            _context.Users.Add(User);
-            await _context.SaveChangesAsync();
-            return RedirectToPage("/Login/Login");
+
+            if (_countService.CheckDuplicateUsername(User) != null)
+            {
+                Message = "Der findes allerede en bruger med det brugernavn. Vælg venligst et nyt brugernavn.";
+                return Page();
+            }
+            else
+            {
+                _context.Users.Add(User);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToPage("/Users/UserConfirmation");
         }
     }
 }

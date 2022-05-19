@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -12,10 +13,10 @@ namespace ZealandEvent.Pages.Arrangementer
 {
     public class DetailsModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
-        private readonly ZealandEvent.Services.ICountService _countService;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public DetailsModel(ZealandEventLib.Data.ZealandEventDBContext context, ZealandEvent.Services.ICountService countService)
+        public DetailsModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
             _countService = countService;
@@ -33,10 +34,11 @@ namespace ZealandEvent.Pages.Arrangementer
             }
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
+            
             AntalPladserTilbage = 500 - _countService.CountBookings(id);
+            
+            Events = _countService.FindEventsToArrangement(id);
 
-            Events = await _context.Events
-    .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
             Events.Sort((x, y) => DateTime.Compare(x.Start, y.Start));
             
 

@@ -21,7 +21,7 @@ namespace ZealandEvent.Services
         {
             Task<List<Booking>> AntalBookinger;
             AntalBookinger = _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.ArrangementId == id).ToListAsync();
+            .Include(a => a.Arrangement).Where(b => b.ArrangementId == id).ToListAsync();
             return AntalBookinger.Result.Count();
         }
 
@@ -29,7 +29,7 @@ namespace ZealandEvent.Services
         {
             Task<List<Booking>> AntalParkeringer;
             AntalParkeringer = _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.Parking == true && b.ArrangementId == id).ToListAsync();
+            .Include(a => a.Arrangement).Where(b => b.Parking == true && b.ArrangementId == id).ToListAsync();
             return AntalParkeringer.Result.Count();
         }
 
@@ -43,6 +43,31 @@ namespace ZealandEvent.Services
             ).FirstOrDefaultAsync();
             return DuplicateEvent.Result;
         }
+
+        public List<Event> FindEventsToArrangement(int? id)
+        {
+            Task<List<Event>> EventsToArrangement;
+            EventsToArrangement = _context.Events
+            .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            return EventsToArrangement.Result;
+        }
+
+        public List<Booking> FindBookingsToArrangement(int? id)
+        {
+            Task<List<Booking>> BookingsToArrangement;
+            BookingsToArrangement = _context.Bookings
+            .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
+            return BookingsToArrangement.Result;
+        }
+
+        public User CheckDuplicateUsername(User newUser)
+        {
+            Task<User> DuplicateUser;
+            DuplicateUser = _context.Users.Where(u => u.UserName == newUser.UserName).FirstOrDefaultAsync();
+            return DuplicateUser.Result;
+        }
+
+
 
 
     }

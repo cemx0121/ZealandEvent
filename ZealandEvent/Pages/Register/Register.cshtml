@@ -3,10 +3,13 @@
 @{
 }
     <div class="container">
-        <h1>Opret en bruger</h1>
           <form method="post" style="width:600px;">
               <div class="form-group; container1">
+                  <h1>Opret en bruger</h1>
                   <hr>
+                  <div>
+                      <h5 style="color:red">@Model.Message</h5>
+                  </div>
                   <label>Brugernavn</label>
                   <input type="text" asp-for="User.UserName" placeholder="Indtast dit ønsket brugernavn" />
                   <span asp-validation-for="User.UserName" class="alert-warning"></span>
@@ -23,7 +26,7 @@
                   <span asp-validation-for="User.Email" class="alert-warning"></span>
 
                   <button type="submit" class="registerbtn" style="width:100px; background-color:green; color:white;">Opret</button>
-                  
+
               </div>
          </form>
     </div>

@@ -16,10 +16,10 @@ namespace ZealandEvent.Pages.Events
     [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
         private readonly ICountService _countService;
 
-        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context, ICountService countService)
+        public CreateModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
             _countService = countService;

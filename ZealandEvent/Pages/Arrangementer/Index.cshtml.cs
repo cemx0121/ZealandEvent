@@ -14,9 +14,9 @@ namespace ZealandEvent.Pages.Arrangementer
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public IndexModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public IndexModel(ZealandEventDBContext context)
         {
             _context = context;
         }

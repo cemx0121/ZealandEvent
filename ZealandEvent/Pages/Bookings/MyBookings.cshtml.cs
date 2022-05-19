@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
 namespace ZealandEvent.Pages.Bookings
@@ -13,9 +14,9 @@ namespace ZealandEvent.Pages.Bookings
     [Authorize(Roles = "Guest")]
     public class MyBookingsModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public MyBookingsModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public MyBookingsModel(ZealandEventDBContext context)
         {
             _context = context;
         }
