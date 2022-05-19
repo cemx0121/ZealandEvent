@@ -50,7 +50,7 @@ namespace ZealandEvent.Pages.Login
                     return RedirectToPage("/Index");
                 }
             }
-            Message = "Incorrect username or password";
+            Message = "Forkert brugernavn eller kodeord";
             return Page();
         }
     }

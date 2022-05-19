@@ -19,15 +19,18 @@ namespace ZealandEventLib.Models
         [Key]
         [Column("User_ID")]
         public int UserId { get; set; }
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage ="Brugernavn skal udfyldes")]
+        [StringLength(30)]
+        [MinLength(3, ErrorMessage = "Brugernavn skal bestå af mindst 3 bogstaver")]
         public string UserName { get; set; }
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Kodeord skal udfyldes")]
+        [StringLength(30)]
+        [MinLength(6, ErrorMessage = "Kodeord skal bestå af mindst 6 bogstaver/tal")]
         public string Password { get; set; }
         public UserRole UserRole { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email skal udfyldes")]
         [StringLength(100)]
+        [EmailAddress( ErrorMessage="Ugyldig e-mail")]
         public string Email { get; set; }
 
         [InverseProperty(nameof(Booking.User))]

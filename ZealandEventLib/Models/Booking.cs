@@ -16,14 +16,18 @@ namespace ZealandEventLib.Models
         public int BookingId { get; set; }
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Fornavn skal udfyldes")]
         [StringLength(50)]
+        [MinLength(2, ErrorMessage = "Et fornavn skal bestå af mindst 2 bogstaver")]
         public string Firstname { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Efternavn skal udfyldes")]
         [StringLength(50)]
+        [MinLength(2, ErrorMessage = "Et efternavn skal bestå af mindst 2 bogstaver")]
         public string Lastname { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Telefon nummer skal udfyldes")]
         [StringLength(8)]
+        [MinLength(8, ErrorMessage = "Et telefon nummer bestå af 8 tal")]
+        [RegularExpression("^[0-9]+$", ErrorMessage="Et telefon nummer kan ikke indeholde bogstaver")]
         public string Phone { get; set; }
         [Column("VIP")]
         public VIP Vip { get; set; }

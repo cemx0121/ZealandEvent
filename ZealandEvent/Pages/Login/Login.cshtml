@@ -4,12 +4,12 @@
 }
 
 <div class="container">
-    <div>
-        @Model.Message
-    </div>
     <form method="post" style="width:600px;">
         <div class="form-group; container1">
             <h1>Log ind</h1>
+            <div style="color:red">
+                @Model.Message
+            </div>
             <hr>
             <label asp-for="UserName" class="col-form-label ">Brugernavn</label>
             <input asp-for="UserName" placeholder="Indtast dit brugernavn" required />

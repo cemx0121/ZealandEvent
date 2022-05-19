@@ -30,11 +30,13 @@ namespace ZealandEventLib.Models
         [Key]
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage ="Et arrangement navn skal udfyldes")]
+        [StringLength(30)]
+        [MinLength(3, ErrorMessage = "Navn på arrangement skal være mindst 3 bogstaver")]
         public string Name { get; set; }
         public Department Department { get; set; }
         [Column(TypeName = "datetime")]
+        [Required(ErrorMessage = "Dato skal udfyldes")]
         public DateTime Date { get; set; }
 
         [InverseProperty(nameof(Booking.Arrangement))]

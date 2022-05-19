@@ -16,12 +16,15 @@ namespace ZealandEventLib.Models
         public int EventId { get; set; }
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Begivenhed titel skal udfyldes")]
+        [StringLength(30)]
+        [MinLength(3, ErrorMessage = "Begivenhed titel skal bestå af mindst 3 bogstaver")]
         public string Title { get; set; }
         [Column(TypeName = "datetime")]
+        [Required(ErrorMessage = "Start tid skal udfyldes")]
         public DateTime Start { get; set; }
         [Column(TypeName = "datetime")]
+        [Required(ErrorMessage = "Slut tid skal udfyldes")]
         public DateTime End { get; set; }
         public Location Location { get; set; }
 
