@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
 namespace ZealandEvent.Services
 {
     public class CountService:ICountService
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public CountService(ZealandEventLib.Data.ZealandEventDBContext context)
+        public CountService(ZealandEventDBContext context)
         {
             _context = context;
         }
