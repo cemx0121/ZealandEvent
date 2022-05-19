@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -16,10 +17,12 @@ namespace ZealandEvent.Pages.Events
     public class CreateModel : PageModel
     {
         private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         public async Task<IActionResult> OnGet(int? id)
@@ -30,7 +33,6 @@ namespace ZealandEvent.Pages.Events
 
         [BindProperty]
         public Event Event { get; set; }
-        public Event EventAlreadyExist { get; set; }
         public Arrangement Arrangement { get; set; }
         public string Message { get; set; }
 
@@ -48,15 +50,7 @@ namespace ZealandEvent.Pages.Events
             Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
             Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
 
-            
-            EventAlreadyExist = await _context.Events.Where(
-            e => e.ArrangementId == Event.ArrangementId &&
-            ((e.Start <= Event.Start && e.End >= Event.Start) || (e.End >= Event.End && e.Start <= Event.End)) && 
-            (Event.Location == Location.Musikteltet || Event.Location == Location.Tribunen) && (e.Location == Location.Musikteltet || e.Location == Location.Tribunen)
-            ).FirstOrDefaultAsync();
-         
-
-            if (EventAlreadyExist != null)
+            if (_countService.CheckForDuplicateEvent(Event) != null)
             {
                 Message = "Der findes allerede et event i samme tidsramme og lokation til dette arrangement! (Musikteltet & Tribunen kan ikke have et event i samme tidsramme)";
                 return Page();

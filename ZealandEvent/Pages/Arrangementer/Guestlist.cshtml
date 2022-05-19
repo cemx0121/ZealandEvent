@@ -9,11 +9,11 @@
     <hr />
     @if (Model.AntalTilmeldte < 100)
     {
-        <h5 style="color:red">Antal tilmeldte: @Model.AntalTilmeldte</h5>
+        <h6 style="color:red">Antal tilmeldte: @Model.AntalTilmeldte</h6>
     }
     else
     {
-        <h5 style="color:green">Antal tilmeldte: @Model.AntalTilmeldte</h5>
+        <h6 style="color:green">Antal tilmeldte: @Model.AntalTilmeldte</h6>
     }
     <table class="table">
         <thead>
@@ -80,6 +80,6 @@
 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
 {
 <div>
-    <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+    <a asp-page="./Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
 </div>
 }

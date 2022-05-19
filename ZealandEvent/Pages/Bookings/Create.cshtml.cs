@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -14,10 +15,12 @@ namespace ZealandEvent.Pages.Bookings
     public class CreateModel : PageModel
     {
         private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEvent.Services.ICountService _countService;
 
-        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public CreateModel(ZealandEventLib.Data.ZealandEventDBContext context, ZealandEvent.Services.ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         public async Task<IActionResult> OnGet(int? id)
@@ -25,8 +28,6 @@ namespace ZealandEvent.Pages.Bookings
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             return Page();
         }
-
-      
 
 
         [BindProperty]
@@ -36,33 +37,23 @@ namespace ZealandEvent.Pages.Bookings
         public List<Booking> AntalParkeringer { get; set; }
         public string Message { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-           
+
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             Booking.ArrangementId = Arrangement.ArrangementId;
 
-            /// Tæller hvor mange bookinger der er til arrangementet, tæller dem og tildeler dem til en int
-            AntalBookinger = await _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.ArrangementId == id).ToListAsync();
-            int noOfBookings = AntalBookinger.Count();
-
-            /// Tæller hvor mange bookinger der har takket ja til parkering, tæller dem og tildeler dem til en int
-            AntalParkeringer = await _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.Parking == true && b.ArrangementId == id).ToListAsync();
-            int noOfParkings = AntalParkeringer.Count();
-
-            if (noOfBookings > 500)
+            if (_countService.CountBookings(id) > 500)
             {
                 Message = "Dette arrangement er desværre fuldt booket!";
                 return Page();
             }
-            else if (noOfParkings > 90 && Booking.Parking == true)
+            else if (_countService.CountParkings(id) >= 90 && Booking.Parking == true)
             {
                 Message = "Dette arrangements p-pladser er desværre fuldt booket";
                 return Page();

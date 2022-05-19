@@ -13,14 +13,17 @@ namespace ZealandEvent.Pages.Arrangementer
     public class DetailsModel : PageModel
     {
         private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEvent.Services.ICountService _countService;
 
-        public DetailsModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public DetailsModel(ZealandEventLib.Data.ZealandEventDBContext context, ZealandEvent.Services.ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         public Arrangement Arrangement { get; set; }
         public List<Event> Events { get; set; }
+        public int AntalPladserTilbage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,7 +33,8 @@ namespace ZealandEvent.Pages.Arrangementer
             }
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
-            
+            AntalPladserTilbage = 500 - _countService.CountBookings(id);
+
             Events = await _context.Events
     .Include(a => a.Arrangement).Where(e => e.ArrangementId == id).ToListAsync();
             Events.Sort((x, y) => DateTime.Compare(x.Start, y.Start));

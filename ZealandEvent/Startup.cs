@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZealandEvent.Services;
 
 namespace ZealandEvent
 {
@@ -27,6 +28,8 @@ namespace ZealandEvent
         {
             services.AddRazorPages();
             services.AddDbContext<ZealandEventLib.Data.ZealandEventDBContext>();
+            services.AddScoped<ICountService, CountService>();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {

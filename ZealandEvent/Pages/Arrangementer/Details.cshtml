@@ -5,73 +5,82 @@
     ViewData["Title"] = "Dagens program";
 }
 
-<h3>Dagens program - @Model.Arrangement.Name</h3>
+<h3 class="text-center">@Model.Arrangement.Name</h3>
 
 <div>
-    <h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
+    <h4 class="text-center">@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
     @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
     {
-<a asp-page="../Events/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-plus" style="color:black; font-size:30px"></i></a>
+        <a asp-page="../Events/Create" asp-route-id="@Model.Arrangement.ArrangementId" style="font-style:oblique; color:black"><i class="fa fa-plus" style="color:black; font-size:20px"></i> Tilføj ny begivenhed</a>
     }
-        <table class="table">
-            <thead>
+    @if (Model.AntalPladserTilbage <= 100)
+    {
+        <h6 style="color:red">Antal pladser tilbage: @Model.AntalPladserTilbage</h6>
+    }
+    else
+    {
+        <h6 style="color:green">Antal pladser tilbage: @Model.AntalPladserTilbage</h6>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Begivenhed
+                </th>
+                <th>
+                    Tidspunkt
+                </th>
+                <th>
+                    Lokation
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.Events)
+            {
+
                 <tr>
-                    <th>
-                        Begivenhed
-                    </th>
-                    <th>
-                        Tidspunkt
-                    </th>
-                    <th>
-                        Lokation
-                    </th>
+                    <td>@e.Title</td>
+                    <td>@e.Start.ToShortTimeString() til @e.End.ToShortTimeString()</td>
+                    <td>@e.Location</td>
+                    @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
+                    {
+                        <td>
+                            <a class="btn" type="button" asp-page="/Events/Edit" asp-route-id="@e.EventId">
+                                <i class="fa fa-edit"></i>
+                            </a> |
+                            <a class="btn" type="button" asp-page="/Events/Delete" asp-route-id="@e.EventId">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    }
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var e in Model.Events)
-                {
-
-                    <tr>
-                        <td>@e.Title</td>
-                        <td>@e.Start.ToShortTimeString() til @e.End.ToShortTimeString()</td>
-                        <td>@e.Location</td>
-                        @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
-                        {
-                            <td>
-                                <a class="btn" type="button" asp-page="/Events/Edit" asp-route-id="@e.EventId">
-                                    <i class="fa fa-edit"></i>
-                                </a> |
-                                <a class="btn" type="button" asp-page="/Events/Delete" asp-route-id="@e.EventId">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        }
-                    </tr>
 
 
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
+</div>
 
 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
 {
-<div>
-    <a asp-page="./Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
-</div>
+    <div>
+        <a asp-page="./Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
+    </div>
 }
 else if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Guest)
 {
-<div>
-    <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId"><i class="fa fa-user-plus" style="color:black; font-size:20px"></i></a> |
-    <a asp-page="/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
-</div>
+    <div>
+        <a asp-page="/Bookings/Create" asp-route-id="@Model.Arrangement.ArrangementId" style="font-style:oblique; color:black"><i class="fa fa-user-plus" style="color:black; font-size:20px"></i> Tilmeld</a> |
+        <a asp-page="/Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
+    </div>
 }
 else
 {
 <div>
-    <p style="color:red">Du skal være logget ind for at booke en plads til arrangementet</p>
-    <a asp-page="/Index"><i class="fa fa-reply" style="color:black; font-size:20px"></i></a>
+    <p style="color:red; font-style:oblique">Du skal være logget ind for at booke en plads til arrangementet</p>
+    <a asp-page="/Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
 </div>
 }
+
 
