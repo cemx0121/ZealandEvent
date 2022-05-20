@@ -55,6 +55,11 @@ namespace ZealandEvent.Pages.Events
                 Message = "Der findes allerede et event i samme tidsramme og lokation til dette arrangement! (Musikteltet & Tribunen kan ikke have et event i samme tidsramme)";
                 return Page();
             }
+            else if (Event.Start > Event.End)
+            {
+                Message = "Start tidspunktet på et event kan ikke sættes til efter slut tidspunktet";
+                return Page();
+            }
             else
             {
 
@@ -62,7 +67,7 @@ namespace ZealandEvent.Pages.Events
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Arrangementer/Index");
+            return RedirectToPage("/Arrangementer/Details", new { id = id.ToString() });
         }
     }
 }

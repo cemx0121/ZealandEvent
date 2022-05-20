@@ -46,10 +46,10 @@
                     @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
                     {
                         <td>
-                            <a class="btn" type="button" asp-page="/Events/Edit" asp-route-id="@e.EventId">
+                            <a class="btn" type="button" asp-page="/Events/Edit" asp-route-eventId="@e.EventId" asp-route-arrangementId="@e.ArrangementId">
                                 <i class="fa fa-edit"></i>
                             </a> |
-                            <a class="btn" type="button" asp-page="/Events/Delete" asp-route-id="@e.EventId">
+                            <a class="btn" type="button" asp-page="/Events/Delete" asp-route-id="@e.EventId" asp-route-arrangementId="@e.ArrangementId">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

@@ -28,45 +28,47 @@ namespace ZealandEvent.Pages.Events
         [BindProperty]
         public Event Event { get; set; }
 
-        public Event EventAlreadyExist { get; set; }
-
         public string Message { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? eventId)
         {
-            if (id == null)
+            if (eventId == null)
             {
                 return NotFound();
             }
-
+            
             Event = await _context.Events
-                .Include(a => a.Arrangement).FirstOrDefaultAsync(m => m.EventId == id);
+                .Include(a => a.Arrangement).FirstOrDefaultAsync(m => m.EventId == eventId);
             
             if (Event == null)
             {
                 return NotFound();
             }
-           ViewData["ArrangementId"] = new SelectList(_context.Arrangements, "ArrangementId", "Name");
+           
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int arrangementId)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            
 
             _context.Attach(Event).State = EntityState.Modified;
+            Event.ArrangementId = arrangementId;
             Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
             Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
 
             if (_countService.CheckForDuplicateEvent(Event) != null)
             {
                 Message = "Der findes allerede et event i samme tidsramme og lokation til dette arrangement! (Musikteltet & Tribunen kan ikke have et event i samme tidsramme)";
-                ViewData["ArrangementId"] = new SelectList(_context.Arrangements, "ArrangementId", "Name");
+                return Page();
+            }
+            else if (Event.Start > Event.End)
+            {
+                Message = "Start tidspunktet på et event kan ikke sættes til efter slut tidspunktet";
                 return Page();
             }
             else
@@ -90,7 +92,7 @@ namespace ZealandEvent.Pages.Events
               }
             }
 
-            return RedirectToPage("/Arrangementer/Index");
+            return RedirectToPage("/Arrangementer/Details", new { id = arrangementId.ToString() });
         }
 
         private bool EventExists(int id)

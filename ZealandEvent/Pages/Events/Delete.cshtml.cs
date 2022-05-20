@@ -41,7 +41,7 @@ namespace ZealandEvent.Pages.Events
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id, int? arrangementId)
         {
             if (id == null)
             {
@@ -56,7 +56,7 @@ namespace ZealandEvent.Pages.Events
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("/Arrangementer/Index");
+            return RedirectToPage("/Arrangementer/Details", new { id = arrangementId.ToString() });
         }
     }
 }
