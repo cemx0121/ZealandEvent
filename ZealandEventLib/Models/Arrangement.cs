@@ -2,14 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace ZealandEventLib.Models
 {
-    public enum Department 
+    public enum Department
     {
         ZealandRoskilde,
         ZealandNæstved,
@@ -21,6 +20,7 @@ namespace ZealandEventLib.Models
     [Table("Arrangement")]
     public partial class Arrangement
     {
+     
         public Arrangement()
         {
             Bookings = new HashSet<Booking>();
@@ -30,7 +30,7 @@ namespace ZealandEventLib.Models
         [Key]
         [Column("Arrangement_ID")]
         public int ArrangementId { get; set; }
-        [Required(ErrorMessage ="Et arrangement navn skal udfyldes")]
+        [Required(ErrorMessage = "Et arrangement navn skal udfyldes")]
         [StringLength(30)]
         [MinLength(3, ErrorMessage = "Navn på arrangement skal være mindst 3 bogstaver")]
         public string Name { get; set; }
@@ -38,6 +38,8 @@ namespace ZealandEventLib.Models
         [Column(TypeName = "datetime")]
         [Required(ErrorMessage = "Dato skal udfyldes")]
         public DateTime Date { get; set; }
+        [StringLength(1000)]
+        public string ImagePath { get; set; }
 
         [InverseProperty(nameof(Booking.Arrangement))]
         public virtual ICollection<Booking> Bookings { get; set; }

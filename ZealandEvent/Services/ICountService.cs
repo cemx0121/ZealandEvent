@@ -52,6 +52,33 @@ namespace ZealandEvent.Services
         /// <returns>Retunere et User objekt, hvis et matchende findes i databasen. Hvis det ikke findes går den i null</returns>
         User CheckDuplicateUsername(User newUser);
 
+        /// <summary>
+        /// Søger efter arrangementer som har værdien af parameteren i arrangement.Navn
+        /// </summary>
+        /// <param name="searchtext">Søgetekst på arrangement.Navn</param>
+        /// <returns>En liste af arrangement hvor arrangement.Navn indeholder søgetekst fra parameteren</returns>
+        List<Arrangement> SearchForArrangement(string searchtext);
+
+        /// <summary>
+        /// Finder alle booking objekter fra databasen, hvor user_id matcher med id'et fra parameteren.
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns>Retunere en liste med alle de booking objekter der matcher id'et</returns>
+        List<Booking> FindBookingsToUser(int? id);
+
+        /// <summary>
+        /// Søger efter bookinger som har værdien af parameteren i booking.Firstname ELLER booking.Lastname
+        /// </summary>
+        /// <param name="searchText">Fornavn eller efternavn</param>
+        /// <returns>En liste af bookinger hvor booking.firstname eller lastname indeholder søgetekst fra parameteren</returns>
+        List<Booking> SearchForBookersName(string searchText, int? id);
+
+        /// <summary>
+        /// Søger efter users som har værdien af parameteren i user.Username
+        /// </summary>
+        /// <param name="searchText">Username</param>
+        /// <returns>En liste af users hvor username indeholder søgetekst fra parameteren</returns>
+        List<User> SearchForUserName(string searchText);
 
 
     }

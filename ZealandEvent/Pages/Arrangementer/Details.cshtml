@@ -5,25 +5,79 @@
     ViewData["Title"] = "Dagens program";
 }
 
-<h3 class="text-center">@Model.Arrangement.Name</h3>
+<style>
+    .progress {
+        background-color: #15171e;
+        height: 40px;
+        width: 25%;
+        border-radius: 10px;
+        position: relative;
+        top: 0px;
+        margin-bottom: 15px;
+        box-shadow: 5px -10px 12px 3px rgba(0,0,0,0.3) inset;
+        padding: 8px;
+    }
 
+    .progress-bar-animated {
+        background: linear-gradient(45deg,rgba(255,255,255,0.5) 25%, transparent 25%, transparent 50%,rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.5) 75%, transparent 75%, transparent);
+        background-size: 22px;
+        border-radius: 5px;
+        height: 100%;
+        animation: move 0.7s linear infinite;
+    }
+    @@keyframes move{
+        100%{
+            background-position: 40px 0px;
+        }
+    }
+    .a{
+        background-color: green;
+        width: @Model.AntalPladserTilbageIProcentTilInt%;
+        
+    }
+    .b{
+        background-color: red;
+        width: @Model.AntalPladserTilbageIProcentTilInt%;
+        
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+    }
+</style>
+
+<h3 class="text-center" style="font-weight:700">@Model.Arrangement.Name</h3>
+<img class="center" src="@Url.Content(Model.Arrangement.ImagePath)" style="width: 100px; height: 100px;"/>
+<h4 class="text-center">@Model.Arrangement.Department | 
+    <time datetime="@Model.Arrangement.Date.ToShortDateString()" style="font-style:italic">
+    <span class="day">@Model.Arrangement.Date.Day</span>
+    <span class="month">@Model.Arrangement.Date.ToString("MMM").Remove(3)</span>
+    <span class="year">@Model.Arrangement.Date.Year</span>
+</time>
+    </h4>
 <div>
-    <h4 class="text-center">@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
+    <h5>Ledige pladser</h5>
+    <div class="progress">
+        @if (Model.AntalPladserTilbage >= 100)
+        {
+            <div class="progress-bar-animated a"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPladserTilbage</p></div>
+        }
+        else
+        {
+            <div class="progress-bar-animated b"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPladserTilbage</p></div>
+        }
+    </div>
     @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
     {
         <a asp-page="../Events/Create" asp-route-id="@Model.Arrangement.ArrangementId" style="font-style:oblique; color:black"><i class="fa fa-plus" style="color:black; font-size:20px"></i> Tilføj ny begivenhed</a>
     }
-    @if (Model.AntalPladserTilbage <= 100)
-    {
-        <h6 style="color:red">Antal pladser tilbage: @Model.AntalPladserTilbage</h6>
-    }
-    else
-    {
-        <h6 style="color:green">Antal pladser tilbage: @Model.AntalPladserTilbage</h6>
-    }
     <table class="table">
         <thead>
-            <tr>
+            <tr style="background-color: lightgrey">
                 <th>
                     Begivenhed
                 </th>
@@ -33,13 +87,19 @@
                 <th>
                     Lokation
                 </th>
-            </tr>
+                @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
+                { 
+                <th>
+                    Rediger/Slet
+                </th>
+                }
+                </tr>
         </thead>
         <tbody>
             @foreach (var e in Model.Events)
             {
 
-                <tr>
+                <tr style="background-color:whitesmoke">
                     <td>@e.Title</td>
                     <td>@e.Start.ToShortTimeString() til @e.End.ToShortTimeString()</td>
                     <td>@e.Location</td>
@@ -77,10 +137,10 @@ else if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.
 }
 else
 {
-<div>
-    <p style="color:red; font-style:oblique">Du skal være logget ind for at booke en plads til arrangementet</p>
-    <a asp-page="/Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
-</div>
+    <div>
+        <p style="color:red; font-style:oblique">Du skal være logget ind for at booke en plads til arrangementet</p>
+        <a asp-page="/Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
+    </div>
 }
 
 

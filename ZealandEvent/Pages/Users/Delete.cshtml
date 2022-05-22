@@ -2,36 +2,28 @@
 @model ZealandEvent.Pages.Users.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Slet bruger";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Er du sikker på du vil slette denne bruger? (Bookings tilhørende brugeren bliver også slettet)</h3>
 <div>
-    <h4>User</h4>
     <hr />
+    <h5>Antal bookinger: @Model.AntalBookinger</h5>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.UserName)
+            Brugernavn
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.UserName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Password)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Password)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.UserRole)
+            Adgangs-niveau
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.UserRole)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Email)
+            Email
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.Email)
@@ -40,7 +32,7 @@
     
     <form method="post">
         <input type="hidden" asp-for="User.UserId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Slet" class="btn btn-danger" /> |
+        <a asp-page="./Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
     </form>
 </div>

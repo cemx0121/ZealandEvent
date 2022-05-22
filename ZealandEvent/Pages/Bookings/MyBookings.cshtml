@@ -8,7 +8,7 @@
     <hr />
     <table class="table">
         <thead>
-            <tr>
+            <tr style="background-color: lightgrey">
                 <th>
                     Navn
                 </th>
@@ -27,13 +27,16 @@
                 <th>
                     Dato
                 </th>
+                <th>
+                    Slet
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var b in Model.Bookings)
             {
 
-            <tr>
+            <tr style="background-color: whitesmoke">
                 <td>@b.Firstname @b.Lastname</td>
                 <td>@b.Phone</td>
                 @if (b.Vip == 0)

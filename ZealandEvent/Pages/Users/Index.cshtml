@@ -2,51 +2,49 @@
 @model ZealandEvent.Pages.Users.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Brugerliste";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<h1>Bruger-liste</h1>
+<form class="text-center" method="post">
+    <input style="margin-bottom:15px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på brugernavn efter en specifik bruger" /> <i class="fas fa-search"></i>
+</form>
 <table class="table">
     <thead>
-        <tr>
+        <tr style="background-color:lightgrey;">
             <th>
-                @Html.DisplayNameFor(model => model.User[0].UserName)
+                Brugernavn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].Password)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].UserRole)
+                Adgangs-niveau
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User[0].Email)
+                Rediger/Slet
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.User) {
-        <tr>
+        <tr style="background-color:whitesmoke;">
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRole)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.UserId">Delete</a>
+                @Html.DisplayFor(modelItem => item.UserRole)
+            </td>
+            <td>
+                <a class="btn" type="button" asp-page="./Edit" asp-route-id="@item.UserId">
+                    <i class="fa fa-edit"></i>
+                </a> |
+                <a class="btn" type="button" asp-page="./Delete" asp-route-id="@item.UserId">
+                    <i class="fa fa-trash"></i>
+                </a>
             </td>
         </tr>
 }

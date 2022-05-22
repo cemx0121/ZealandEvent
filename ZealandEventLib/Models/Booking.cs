@@ -27,7 +27,7 @@ namespace ZealandEventLib.Models
         [Required(ErrorMessage = "Telefon nummer skal udfyldes")]
         [StringLength(8)]
         [MinLength(8, ErrorMessage = "Et telefon nummer bestå af 8 tal")]
-        [RegularExpression("^[0-9]+$", ErrorMessage="Et telefon nummer kan ikke indeholde bogstaver")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "Et telefon nummer kan ikke indeholde bogstaver")]
         public string Phone { get; set; }
         [Column("VIP")]
         public VIP Vip { get; set; }

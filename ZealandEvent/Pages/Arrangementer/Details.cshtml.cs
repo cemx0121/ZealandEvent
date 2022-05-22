@@ -24,7 +24,9 @@ namespace ZealandEvent.Pages.Arrangementer
 
         public Arrangement Arrangement { get; set; }
         public List<Event> Events { get; set; }
-        public int AntalPladserTilbage { get; set; }
+        public double AntalPladserTilbage { get; set; }
+        public double AntalPladserTilbageIProcent { get; set; }
+        public int AntalPladserTilbageIProcentTilInt { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +38,9 @@ namespace ZealandEvent.Pages.Arrangementer
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             
             AntalPladserTilbage = 500 - _countService.CountBookings(id);
+
+            AntalPladserTilbageIProcent = (AntalPladserTilbage / 500) * 100;
+            AntalPladserTilbageIProcentTilInt = Convert.ToInt32(AntalPladserTilbageIProcent);
             
             Events = _countService.FindEventsToArrangement(id);
 

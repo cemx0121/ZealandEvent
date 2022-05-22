@@ -26,7 +26,11 @@ namespace ZealandEvent.Pages.Arrangementer
 
         public Arrangement Arrangement { get; set; }
         public List<Booking> Bookings { get; set; }
-        public int AntalTilmeldte { get; set; }
+        public double AntalTilmeldte { get; set; }
+        public double AntalTilmeldteIProcent { get; set; }
+        public int AntalTilmeldteIProcentTilInt { get; set; }
+        [BindProperty]
+        public string SearchText { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -40,12 +44,28 @@ namespace ZealandEvent.Pages.Arrangementer
             Bookings = _countService.FindBookingsToArrangement(id);
             AntalTilmeldte = Bookings.Count();
 
+            AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
+            AntalTilmeldteIProcentTilInt = Convert.ToInt32(AntalTilmeldteIProcent);
 
 
             if (Arrangement == null)
             {
                 return NotFound();
             }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
+
+            Bookings = _countService.FindBookingsToArrangement(id);
+            AntalTilmeldte = Bookings.Count();
+
+            AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
+            AntalTilmeldteIProcentTilInt = Convert.ToInt32(AntalTilmeldteIProcent);
+
+            Bookings = _countService.SearchForBookersName(SearchText, id);
             return Page();
         }
     }

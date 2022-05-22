@@ -6,7 +6,7 @@
 }
 
 <h3>Udfyld oplysninger for at registrere dig som gæst til arrangementet</h3>
-<h5>@Model.Arrangement.Name | @Model.Arrangement.Date.ToShortDateString() </h5>
+<h5>@Model.Arrangement.Name | @Model.Arrangement.Date.ToShortDateString() | @Model.Arrangement.Department</h5>
 <hr />
 <div>
     <h5 style="color:red">@Model.Message</h5>
@@ -31,7 +31,7 @@
                 <span asp-validation-for="Booking.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <p>Zealand tilbyder vores gæster en plads i vores VIP-Lounge på 2 sal, hvor der er mulighed for at tilvælge en frokostmenu.</p>
+                <p style="font-weight:700">Zealand tilbyder vores gæster en plads i vores VIP-Lounge på 2 sal, hvor der er mulighed for at tilvælge en frokostmenu.</p>
                 <label asp-for="Booking.Vip" class="control-label">Ønsker du at booke en plads i VIP-Loungen?</label>
                 <select name="Booking.Vip" asp-for="Booking.Vip" class="form-control">
                     <option value="0">Nej tak</option>
@@ -43,11 +43,11 @@
                 </select>
             </div>
             <div>
-                <p>Her ses en oversigt af tog fra KBH-Roskilde omkring arrangment start & Roskilde-KBH omkring arrangement slut</p>
+                <p style="font-weight:700">Her ses en oversigt af tog fra KBH-Roskilde omkring arrangment start & Roskilde-KBH omkring arrangement slut</p>
                 <img src="/Billeder/tog afgange ny.png" style="width:550px;">
             </div>
             <div class="form-group" style="padding-top:50px;">
-                <p>Zealand tilbyder vores gæster at booke en p-plads sammen med sin tilmelding, hvis man kommer i bil.</p>
+                <p style="font-weight:700">Zealand tilbyder vores gæster at booke en p-plads sammen med sin tilmelding, hvis man kommer i bil.</p>
                 <p style="color:red">BEMÆRK: Der kan være fuldt booket da der kun er plads til 90 biler på p-pladsen</p>
                 <label asp-for="Booking.Parking" class="control-label">Ønsker du at booke en p-plads?</label>
                 <p>@Html.RadioButtonFor(b => b.Booking.Parking, true) Ja | @Html.RadioButtonFor(b => b.Booking.Parking, false) Nej</p>

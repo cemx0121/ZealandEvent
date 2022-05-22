@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -14,15 +15,21 @@ namespace ZealandEvent.Pages.Users
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public DeleteModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public DeleteModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
         [BindProperty]
         public User User { get; set; }
+
+        public List<Booking> Bookings { get; set; }
+
+        public int AntalBookinger { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,6 +39,8 @@ namespace ZealandEvent.Pages.Users
             }
 
             User = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            Bookings = _countService.FindBookingsToUser(id);
+            AntalBookinger = Bookings.Count();
 
             if (User == null)
             {
@@ -48,9 +57,14 @@ namespace ZealandEvent.Pages.Users
             }
 
             User = await _context.Users.FindAsync(id);
+            Bookings = _countService.FindBookingsToUser(id);
 
             if (User != null)
             {
+                foreach (var b in Bookings)
+                {
+                    _context.Bookings.Remove(b);
+                }
                 _context.Users.Remove(User);
                 await _context.SaveChangesAsync();
             }

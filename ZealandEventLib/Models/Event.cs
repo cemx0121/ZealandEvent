@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ZealandEventLib.Models
 {
-    public enum Location { Spiseteltet, Musikteltet, Tribunen}
+    public enum Location { Spiseteltet, Musikteltet, Tribunen }
     public partial class Event
     {
         [Key]

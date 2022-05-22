@@ -2,22 +2,77 @@
 @model ZealandEvent.Pages.Arrangementer.GuestlistModel
 @{
 }
+<style>
+    .progress {
+        background-color: #15171e;
+        height: 40px;
+        width: 25%;
+        border-radius: 10px;
+        position: relative;
+        top: 0px;
+        margin-bottom: 15px;
+        box-shadow: 5px -10px 12px 3px rgba(0,0,0,0.3) inset;
+        padding: 8px;
+    }
 
-<h3>Tilmeldingsliste - @Model.Arrangement.Name</h3>
+    .progress-bar-animated {
+        background: linear-gradient(45deg,rgba(255,255,255,0.5) 25%, transparent 25%, transparent 50%,rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.5) 75%, transparent 75%, transparent);
+        background-size: 22px;
+        border-radius: 5px;
+        height: 100%;
+        animation: move 0.7s linear infinite;
+    }
+    @@keyframes move{
+        100%{
+            background-position: 40px 0px;
+        }
+    }
+    .a{
+        background-color: green;
+        width: @Model.AntalTilmeldteIProcentTilInt%;
+
+    }
+    .b{
+        background-color: red;
+        width: @Model.AntalTilmeldteIProcentTilInt%;
+
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+    }
+</style>
+
+
+
+
+
+
+<h3>Gæsteliste - @Model.Arrangement.Name</h3>
 <h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
-<div>
-    <hr />
-    @if (Model.AntalTilmeldte < 100)
+<h5>Tilmeldte</h5>
+<div class="progress">
+    @if (Model.AntalTilmeldte >= 100)
     {
-        <h6 style="color:red">Antal tilmeldte: @Model.AntalTilmeldte</h6>
+        <div class="progress-bar-animated a"><p style="text-align:center; font-size:large; font-weight:700; color:white">@Model.AntalTilmeldte</p></div>
     }
     else
     {
-        <h6 style="color:green">Antal tilmeldte: @Model.AntalTilmeldte</h6>
+        <div class="progress-bar-animated b"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalTilmeldte</p></div>
     }
+</div>
+<hr />
+<form class="text-center" method="post">
+    <input style="margin-bottom:15px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på navn efter specifikke bookinger" /> <i class="fas fa-search"></i>
+</form>
+<div>
     <table class="table">
         <thead>
-            <tr>
+            <tr style="background-color: lightgrey">
                 <th>
                     Navn
                 </th>
@@ -36,42 +91,42 @@
             @foreach (var b in Model.Bookings)
             {
 
-            <tr>
-                <td>@b.Firstname @b.Lastname</td>
-                <td>@b.Phone</td>
-                @if (b.Vip == 0)
-                {
-                    <td>Nej</td>
-                }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTak)
-                {
-                    <td>Ja</td>
-                }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusN)
-                {
-                    <td>Ja + Normal Menu</td>
-                }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusV)
-                {
-                    <td>Ja + Vegansk Menu</td>
-                }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusNOgC)
-                {
-                    <td>Ja + Normal Menu & Champagne Menu</td>
-                }
-                @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusVOgC)
-                {
-                    <td>Ja + Vegansk Menu & Champagne Menu</td>
-                }
-                @if (b.Parking == false)
-                {
-                    <td></td>
-                }
-                @if (b.Parking == true)
-                {
-                    <td><i class="fa fa-check"></i></td>
-                }
-            </tr>
+                <tr style="background-color:whitesmoke">
+                    <td>@b.Firstname @b.Lastname</td>
+                    <td>@b.Phone</td>
+                    @if (b.Vip == 0)
+                    {
+                        <td>Nej</td>
+                    }
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTak)
+                    {
+                        <td>Ja</td>
+                    }
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusN)
+                    {
+                        <td>Ja + Normal Menu</td>
+                    }
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusV)
+                    {
+                        <td>Ja + Vegansk Menu</td>
+                    }
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusNOgC)
+                    {
+                        <td>Ja + Normal Menu & Champagne Menu</td>
+                    }
+                    @if (b.Vip == ZealandEventLib.Models.VIP.JaTakPlusVOgC)
+                    {
+                        <td>Ja + Vegansk Menu & Champagne Menu</td>
+                    }
+                    @if (b.Parking == false)
+                    {
+                        <td></td>
+                    }
+                    @if (b.Parking == true)
+                    {
+                        <td><i class="fa fa-check"></i></td>
+                    }
+                </tr>
             }
         </tbody>
     </table>
@@ -79,7 +134,7 @@
 
 @if (Login.LoginModel.LoggedInUser != null && Login.LoginModel.LoggedInUser.UserRole == ZealandEventLib.Models.UserRole.Admin)
 {
-<div>
-    <a asp-page="./Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
-</div>
+    <div>
+        <a asp-page="./Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
+    </div>
 }

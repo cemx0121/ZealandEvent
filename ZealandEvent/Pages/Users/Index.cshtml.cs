@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using ZealandEvent.Services;
 using ZealandEventLib.Data;
 using ZealandEventLib.Models;
 
@@ -14,18 +15,30 @@ namespace ZealandEvent.Pages.Users
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
+        private readonly ICountService _countService;
 
-        public IndexModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public IndexModel(ZealandEventDBContext context, ICountService countService)
         {
             _context = context;
+            _countService = countService;
         }
 
-        public IList<User> User { get;set; }
+        public List<User> User { get;set; }
+        [BindProperty]
+        public string SearchText { get; set; }
 
         public async Task OnGetAsync()
         {
             User = await _context.Users.ToListAsync();
+            User.Sort((x, y) => string.Compare(x.UserName, y.UserName));
+        }
+
+        public IActionResult OnPost()
+        {
+            User = _countService.SearchForUserName(SearchText);
+            User.Sort((x, y) => string.Compare(x.UserName, y.UserName));
+            return Page();
         }
     }
 }

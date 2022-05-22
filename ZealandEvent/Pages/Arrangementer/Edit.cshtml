@@ -28,11 +28,16 @@
                     <option value="4">Zealand - Ringsted</option>
                     <option value="5">Zealand - Holbæk</option>
                 </select>
-</div>
+            </div>
             <div class="form-group">
                 <label asp-for="Arrangement.Date" class="control-label">Dato</label>
                 <input type="date" asp-for="Arrangement.Date" class="form-control" />
                 <span asp-validation-for="Arrangement.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Arrangement.ImagePath" class="control-label">Billede-sti (URL)</label>
+                <input asp-for="Arrangement.ImagePath" class="form-control" placeholder="Link til billede (URL)" />
+                <span asp-validation-for="Arrangement.ImagePath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input style="background-color:green; color:white" type="submit" value="Gem" class="btn btn-primary" /> |

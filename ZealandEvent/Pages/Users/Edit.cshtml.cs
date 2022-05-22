@@ -15,15 +15,18 @@ namespace ZealandEvent.Pages.Users
     [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
-        private readonly ZealandEventLib.Data.ZealandEventDBContext _context;
+        private readonly ZealandEventDBContext _context;
 
-        public EditModel(ZealandEventLib.Data.ZealandEventDBContext context)
+        public EditModel(ZealandEventDBContext context)
         {
             _context = context;
         }
 
         [BindProperty]
         public User User { get; set; }
+
+        public User OldUser { get; set; }
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -41,15 +44,9 @@ namespace ZealandEvent.Pages.Users
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
+           
             _context.Attach(User).State = EntityState.Modified;
 
             try
