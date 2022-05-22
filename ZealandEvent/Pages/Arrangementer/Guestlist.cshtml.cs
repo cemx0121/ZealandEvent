@@ -42,6 +42,7 @@ namespace ZealandEvent.Pages.Arrangementer
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
 
             Bookings = _countService.FindBookingsToArrangement(id);
+            Bookings.Sort((x, y) => string.Compare(x.Firstname, y.Firstname));
             AntalTilmeldte = Bookings.Count();
 
             AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
@@ -60,6 +61,7 @@ namespace ZealandEvent.Pages.Arrangementer
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
 
             Bookings = _countService.FindBookingsToArrangement(id);
+            Bookings.Sort((x, y) => string.Compare(x.Firstname, y.Firstname));
             AntalTilmeldte = Bookings.Count();
 
             AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
