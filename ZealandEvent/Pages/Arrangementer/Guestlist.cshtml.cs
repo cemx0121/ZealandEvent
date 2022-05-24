@@ -43,8 +43,8 @@ namespace ZealandEvent.Pages.Arrangementer
 
             Bookings = _countService.FindBookingsToArrangement(id);
             Bookings.Sort((x, y) => string.Compare(x.Firstname, y.Firstname));
+            
             AntalTilmeldte = Bookings.Count();
-
             AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
             AntalTilmeldteIProcentTilInt = Convert.ToInt32(AntalTilmeldteIProcent);
 
@@ -62,8 +62,8 @@ namespace ZealandEvent.Pages.Arrangementer
 
             Bookings = _countService.FindBookingsToArrangement(id);
             Bookings.Sort((x, y) => string.Compare(x.Firstname, y.Firstname));
+            
             AntalTilmeldte = Bookings.Count();
-
             AntalTilmeldteIProcent = (AntalTilmeldte / 500) * 100;
             AntalTilmeldteIProcentTilInt = Convert.ToInt32(AntalTilmeldteIProcent);
 

@@ -68,7 +68,6 @@
         }
 
         .text button {
-            background: #ef6f6c;
             border-radius: 20px;
             border: none;
             color: #fff;
@@ -77,13 +76,170 @@
             font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
+
+            height: 60px;
+            text-align: center;
+            text-decoration: none;
+            font-family: sans-serif;
+            box-sizing: border-box;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            z-index: 1;
+
+
         }
+        .text button:hover
+        {
+            animation: animate 8s linear infinite;
+        }
+            .text button:before {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                z-index: -1;
+                background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+                background-size: 400%;
+                border-radius: 30px;
+                opacity: 0;
+                transition: 0.5s;
+            }
+        @@keyframes animate
+        {
+            0%
+            {
+                background-position: 0%;
+            }
+            100%
+            {
+                background-position: 400%;
+            }
+        }
+    .text button:hover:before {
+        filter: blur(20px);
+        opacity: 1;
+        animation: animate 8s linear infinite;
+    }
+
+    section {
+        height: 30vh;
+        position:relative;
+    }
+    section:before{
+        content: "";
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #f00,#f00,#0f0, #0ff, #ff0, #0ff);
+        mix-blend-mode: color;
+        pointer-events: none;
+        border-radius: 50px;
+
+    }
+    video {
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+        border-radius: 50px;
+    }
+    h1 {
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-size: 3.5em;
+        font-family: sans-serif;
+        letter-spacing: 0.2em;
+        position: absolute;
+        transform: translateY(-40%);
+    }
+        h1 > span {
+            opacity: 0;
+            display: inline-block;
+            animation: animate1 1s linear forwards;
+        }
+    @@keyframes animate1
+    {
+        0%
+        {
+            opacity: 0;
+            transform: rotateY(90deg);
+            filter: blur(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: rotateY(0deg);
+            filter: blur();
+        }
+    }
+    h1 > span:nth-child(1){
+        animation-delay: 0.5s;
+    }
+    h1 > span:nth-child(2) {
+        animation-delay: 1.0s;
+    }
+    h1 > span:nth-child(3) {
+        animation-delay: 1.50s;
+    }
+    h1 > span:nth-child(4) {
+        animation-delay: 1.75s;
+    }
+    h1 > span:nth-child(5) {
+        animation-delay: 2s;
+    }
+    h1 > span:nth-child(6) {
+        animation-delay: 2.25s;
+    }
+    h1 > span:nth-child(7) {
+        animation-delay: 2.50s;
+    }
+    h1 > span:nth-child(8) {
+        animation-delay: 2.75s;
+    }
+    h1 > span:nth-child(9) {
+        animation-delay: 3s;
+    }
+    h1 > span:nth-child(10) {
+        animation-delay: 3.25s;
+    }
+    h1 > span:nth-child(11) {
+        animation-delay: 3.50s;
+    }
+    h1 > span:nth-child(12) {
+        animation-delay: 3.75s;
+    }
+    h1 > span:nth-child(13) {
+        animation-delay: 4.25s;
+    }
 </style>
 
 <div class="container">
-    <img class="text-center" src="~/Billeder/zealandForside3.png" style="max-width:100%" />
+    <section>
+        <video src="~/Billeder/smoke.mp4" autoplay muted></video>
+        <h1>
+            <span>Z</span>
+            <span>E</span>
+            <span>A</span>
+            <span>L</span>
+            <span>A</span>
+            <span>N</span>
+            <span>D</span>
+            <span> </span>
+            <span>E</span>
+            <span>V</span>
+            <span>E</span>
+            <span>N</span>
+            <span>T</span>
+        </h1>
+    </section>
     <form class="text-center" method="post">
-        <input style="margin-bottom:25px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på arrangement navn" /> <i class="fas fa-search"></i>
+        <input style="margin-bottom:25px; margin-top: 25px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på arrangement navn" /> <i class="fas fa-search"></i>
     </form>
     <main class="grid">
         @foreach (var a in Model.Arrangement)

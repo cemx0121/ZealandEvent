@@ -33,8 +33,6 @@ namespace ZealandEvent.Pages.Bookings
         [BindProperty]
         public Booking Booking { get; set; }
         public Arrangement Arrangement { get; set; }
-        public List<Booking> AntalBookinger { get; set; }
-        public List<Booking> AntalParkeringer { get; set; }
         public string Message { get; set; }
 
 
@@ -48,7 +46,7 @@ namespace ZealandEvent.Pages.Bookings
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
             Booking.ArrangementId = Arrangement.ArrangementId;
 
-            if (_countService.CountBookings(id) > 500)
+            if (_countService.CountBookings(id) >= 500)
             {
                 Message = "Dette arrangement er desværre fuldt booket!";
                 return Page();

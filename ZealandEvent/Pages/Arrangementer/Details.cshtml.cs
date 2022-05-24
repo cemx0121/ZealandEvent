@@ -36,16 +36,13 @@ namespace ZealandEvent.Pages.Arrangementer
             }
 
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
-            
-            AntalPladserTilbage = 500 - _countService.CountBookings(id);
+            Events = _countService.FindEventsToArrangement(id);
+            Events.Sort((x, y) => DateTime.Compare(x.Start, y.Start));
 
+            AntalPladserTilbage = 500 - _countService.CountBookings(id);
             AntalPladserTilbageIProcent = (AntalPladserTilbage / 500) * 100;
             AntalPladserTilbageIProcentTilInt = Convert.ToInt32(AntalPladserTilbageIProcent);
-            
-            Events = _countService.FindEventsToArrangement(id);
 
-            Events.Sort((x, y) => DateTime.Compare(x.Start, y.Start));
-            
 
 
             if (Arrangement == null)

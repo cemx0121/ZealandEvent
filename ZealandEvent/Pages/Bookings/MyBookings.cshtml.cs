@@ -27,7 +27,7 @@ namespace ZealandEvent.Pages.Bookings
         {
             
             Bookings = await _context.Bookings
-    .Include(a => a.Arrangement).Where(b => b.UserId == Login.LoginModel.LoggedInUser.UserId).ToListAsync();
+            .Include(a => a.Arrangement).Where(b => b.UserId == Login.LoginModel.LoggedInUser.UserId).ToListAsync();
             Bookings.Sort((x, y) => string.Compare(x.Firstname, y.Firstname));
 
             return Page();
