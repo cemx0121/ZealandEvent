@@ -12,9 +12,9 @@ namespace ZealandEvent.Services
     {
         private readonly ZealandEventDBContext _context;
 
-        public CountService(ZealandEventDBContext context)
+        public CountService()
         {
-            _context = context;
+            _context = new ZealandEventDBContext();
         }
 
         #region Searching Methods
