@@ -16,6 +16,10 @@ namespace ZealandEvent.Services
         {
             _context = new ZealandEventDBContext();
         }
+        public CountService(ZealandEventDBContext context)
+        {
+            _context = context;
+        }
 
         #region Searching Methods
         public List<Event> FindEventsToArrangement(int? id)
