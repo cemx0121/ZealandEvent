@@ -12,6 +12,10 @@ namespace ZealandEvent.Services
     {
         private readonly ZealandEventDBContext _context;
 
+
+        /// <summary>
+        /// Konstruktør til unit testing
+        /// </summary>
         public CountService()
         {
             _context = new ZealandEventDBContext();
