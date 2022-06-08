@@ -5,7 +5,288 @@
     ViewData["Title"] = "Tilmeld til arrangement";
 }
 
-<h3>Udfyld oplysninger for at registrere dig som gæst til arrangementet</h3>
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins',sans-serif;
+    }
+
+    section {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        font-family: 'Poppins',sans-serif;
+    }
+
+    .container1 {
+        max-width: 700px;
+        width: 100%;
+        background-color: #fff;
+        padding: 25px 30px;
+        border-radius: 10px;
+    }
+.container1 .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.container1 .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+form .input-box span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+ form .parking-details .parking-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .button{
+   height: 45px;
+   margin: 35px 0;
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+ @@media(max-width: 584px){
+ .container{
+  max-width: 100%;
+}
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .content form .user-details{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+  }
+  @@media(max-width: 459px){
+  .container .content .category{
+    flex-direction: column;
+  }
+}
+  .wrapper{
+      align-items: end;
+      justify-content: end;
+      display: flex;
+      height: 7vh;
+      margin: 15px;
+  }
+    .wrapper > a {
+        display: inline-block;
+        text-decoration: none;
+        background-color: rgb(0 0 0 / 15%);
+        padding: 15px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        color: #585858;
+    }
+
+    .modal {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(77, 77, 77, 0.7);
+        transition: all 0.4s;
+        visibility: hidden;
+        opacity: 0;
+    }
+    .modal:target{
+        visibility: visible;
+        opacity: 1;
+    }
+    .modalcontent{
+        position: relative;
+        background: #fff;
+        width: 500px;
+        padding: 1em 2em;
+        border-radius: 4px;
+    }
+
+    .modelcontent > a{
+        font-size: 21px;
+        font-weight: 600;
+    }
+    .modalclose{
+        position:absolute;
+        top: -10px;
+        right: 6px;
+        color: #585858;
+        text-decoration: none;
+        font-size: 36px;
+    }
+
+    .progress {
+        background-color: #15171e;
+        height: 40px;
+        width: 25%;
+        border-radius: 10px;
+        position: relative;
+        top: 0px;
+        margin-bottom: 15px;
+        box-shadow: 5px -10px 12px 3px rgba(0,0,0,0.3) inset;
+        padding: 8px;
+        float:left;
+    }
+
+    .progress-bar-animated {
+        background: linear-gradient(45deg,rgba(255,255,255,0.5) 25%, transparent 25%, transparent 50%,rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.5) 75%, transparent 75%, transparent);
+        background-size: 22px;
+        border-radius: 5px;
+        height: 100%;
+        animation: move 0.7s linear infinite;
+    }
+    @@keyframes move{
+        100%{
+            background-position: 40px 0px;
+        }
+    }
+    .a{
+        background-color: green;
+        width: @Model.AntalPPladserTilbageIProcentTilInt%;
+
+    }
+    .b{
+        background-color: red;
+        width: @Model.AntalPPladserTilbageIProcentTilInt%;
+
+    }
+
+</style>
+
+<section>
+    <div class="container1">
+        <div class="title">Tilmelding til @Model.Arrangement.Name</div>
+        <form method="post">
+            <p style="color: red; text-align: center; font-weight: 600;">@Model.Message</p>
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Fornavn</span>
+                    <input asp-for="Booking.Firstname" type="text" placeholder="Indtast dit fornavn" required />
+                    <span asp-validation-for="Booking.Firstname" class="alert-danger"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Efternavn</span>
+                    <input asp-for="Booking.Lastname" type="text" placeholder="Indtast dit efternavn" required />
+                    <span asp-validation-for="Booking.Lastname" class="alert-danger"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Telefon nummer</span>
+                    <input asp-for="Booking.Phone" type="text" placeholder="Indtast dit telefon nummer" required />
+                    <span asp-validation-for="Booking.Phone" class="alert-danger"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vælg VIP-status</span>
+                    <select name="Booking.Vip" asp-for="Booking.Vip" class="form-control">
+                        <option value="0">Nej tak</option>
+                        <option value="1">Ja tak | 100,-DKK</option>
+                        <option value="2">Ja tak + Normal menu | 150,-DKK</option>
+                        <option value="3">Ja tak + Vegansk menu | 175,-DKK</option>
+                        <option value="4">Ja tak + Normal menu & Champagne menu | 250,-DKK</option>
+                        <option value="4">Ja tak + Vegansk & Champagne menu | 275,-DKK</option>
+                    </select>
+                </div>
+            </div>
+            <div class="parking-details" style="text-align:center;">
+                <span class="parking-title">Hos Zealand tilbyder vi vores gæster muligheden for at reservere en p-plads sammen med sin tilmelding.</span>
+                    <p style="text-align:left; font-weight:500; margin-top:1em;">Ledige p-pladser</p>
+                    <div class="progress">
+                        @if (Model.AntalPPladserTilbage >= 26)
+                        {
+                            <div class="progress-bar-animated a"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
+                        }
+                        else
+                        {
+                            <div class="progress-bar-animated b"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
+                        }
+                    </div>
+                    <div class="wrapper">
+                        <a href="#modalbox">Se togplan</a>
+                    </div>
+                    <div id="modalbox" class="modal">
+                        <div class="modalcontent">
+                            <img src="/Billeder/tog afgange ny.png" style="width:100%; height: 100%; padding: 2px; border-style:solid;">
+                            <a href="#" class="modalclose">&times;</a>
+                        </div>
+                    </div>
+            </div>
+            <div style="display:inline-flex; align-items:center;">
+                <label class="control-label" style="font-weight: 500; margin-bottom: 5px;">Ønsker du at reservere en p-plads?</label>
+                <input asp-for="Booking.Parking" type="checkbox" name="Booking.Parking" value="true" style="width: 25px; height: 25px; margin-left:5px;" />
+            </div>
+            <div class="button">
+                <input type="submit" value="Tilmeld" />
+                <a asp-page="../Arrangementer/Details" asp-route-id="@Model.Arrangement.ArrangementId" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px; margin: 10px;"></i> Tilbage</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+@*<h3>Udfyld oplysninger for at registrere dig som gæst til arrangementet</h3>
 <h5>@Model.Arrangement.Name | @Model.Arrangement.Date.ToShortDateString() | @Model.Arrangement.Department</h5>
 <hr />
 <div>
@@ -59,7 +340,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

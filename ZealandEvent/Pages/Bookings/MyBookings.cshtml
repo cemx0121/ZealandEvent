@@ -6,9 +6,9 @@
 <h3>Mine bookinger</h3>
 <div>
     <hr />
-    <table class="table">
+    <table class="table" style="border-style:solid; border-width:3px; border-color:black;">
         <thead>
-            <tr style="background-color: lightgrey">
+            <tr style="background-color: whitesmoke">
                 <th>
                     Navn
                 </th>
@@ -27,16 +27,14 @@
                 <th>
                     Dato
                 </th>
-                <th>
-                    Slet
-                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var b in Model.Bookings)
             {
 
-            <tr style="background-color: whitesmoke">
+            <tr style="background-color: white">
                 <td>@b.Firstname @b.Lastname</td>
                 <td>@b.Phone</td>
                 @if (b.Vip == 0)

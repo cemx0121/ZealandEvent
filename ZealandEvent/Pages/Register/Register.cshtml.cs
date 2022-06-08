@@ -43,7 +43,7 @@ namespace ZealandEvent.Pages.Register
 
             if (_countService.CheckDuplicateUsername(User) != null)
             {
-                Message = "Der findes allerede en bruger med det brugernavn. Vælg venligst et nyt brugernavn.";
+                Message = "Der findes allerede en bruger med det brugernavn. Vælg et andet brugernavn.";
                 return Page();
             }
             else

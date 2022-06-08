@@ -26,6 +26,11 @@ namespace ZealandEvent.Pages.Bookings
         public async Task<IActionResult> OnGet(int? id)
         {
             Arrangement = await _context.Arrangements.FirstOrDefaultAsync(m => m.ArrangementId == id);
+
+            AntalPPladserTilbage = 90 - _countService.CountParkings(id);
+            AntalPPladserTilbageIProcent = (AntalPPladserTilbage / 90) * 100;
+            AntalPPladserTilbageIProcentTilInt = Convert.ToInt32(AntalPPladserTilbageIProcent);
+
             return Page();
         }
 
@@ -34,7 +39,9 @@ namespace ZealandEvent.Pages.Bookings
         public Booking Booking { get; set; }
         public Arrangement Arrangement { get; set; }
         public string Message { get; set; }
-
+        public double AntalPPladserTilbage { get; set; }
+        public double AntalPPladserTilbageIProcent { get; set; }
+        public int AntalPPladserTilbageIProcentTilInt { get; set; }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
@@ -49,11 +56,17 @@ namespace ZealandEvent.Pages.Bookings
             if (_countService.CountBookings(id) >= 500)
             {
                 Message = "Dette arrangement er desværre fuldt booket!";
+                AntalPPladserTilbage = 90 - _countService.CountParkings(id);
+                AntalPPladserTilbageIProcent = (AntalPPladserTilbage / 90) * 100;
+                AntalPPladserTilbageIProcentTilInt = Convert.ToInt32(AntalPPladserTilbageIProcent);
                 return Page();
             }
             else if (_countService.CountParkings(id) >= 90 && Booking.Parking == true)
             {
                 Message = "Dette arrangements p-pladser er desværre fuldt booket";
+                AntalPPladserTilbage = 90 - _countService.CountParkings(id);
+                AntalPPladserTilbageIProcent = (AntalPPladserTilbage / 90) * 100;
+                AntalPPladserTilbageIProcentTilInt = Convert.ToInt32(AntalPPladserTilbageIProcent);
                 return Page();
             }
             else
