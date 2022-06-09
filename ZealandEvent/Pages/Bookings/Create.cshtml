@@ -213,6 +213,58 @@ form .user-details .input-box{
         width: @Model.AntalPPladserTilbageIProcentTilInt%;
 
     }
+    input[type="checkbox"] {
+        position: relative;
+        margin-left: 15px;
+        width: 90px;
+        height: 30px;
+        -webkit-appearance: none;
+        background: linear-gradient(0deg, #dc3545, #721c24);
+        outline: none;
+        border-radius: 20px;
+        box-shadow: 0 0 0 4px #353535, 0 0 0 5px #3e3e3e, inset 0 0 10px rgba(0,0,0, 1), 0 5px 20px rgba(0,0,0,.5), inset 0 0 15px rgba(0,0,0,.2);
+    }
+
+    input:checked[type="checkbox"] {
+        background: linear-gradient(0deg,#28a745,#155724);
+        box-shadow: 0 0 2px #28a745,0 0 0 4px #353535, 0 0 0 5px #3e3e3e, inset 0 0 10px rgba(0,0,0, 1), 0 5px 20px rgba(0,0,0,.5), inset 0 0 15px rgba(0,0,0,.2);
+    }
+
+    input[type="checkbox"]:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 30px;
+        background: linear-gradient(0deg,#000, #6b6b6b);
+        border-radius: 20px;
+        box-shadow: 0 0 0 1px #232323;
+        transform: scale(.98,.96);
+        transition: 0.5s;
+    }
+
+    input:checked[type="checkbox"]:before {
+        left: 40px;
+    }
+
+    input[type="checkbox"]:after {
+        content: '';
+        position: absolute;
+        top: calc(50% - 2px);
+        left: 35px;
+        width: 4px;
+        height: 4px;
+        background: linear-gradient(0deg,#6b6b6b,#000);
+        border-radius: 50%;
+        transition: 0.5s;
+    }
+
+    input:checked[type="checkbox"]:after {
+        background: #28a745;
+        left: 75px;
+        box-shadow: 0 0 5px #28a745,0 0 15px #28a745;
+    }
 
 </style>
 
@@ -251,30 +303,30 @@ form .user-details .input-box{
             </div>
             <div class="parking-details" style="text-align:center;">
                 <span class="parking-title">Hos Zealand tilbyder vi vores gæster muligheden for at reservere en p-plads sammen med sin tilmelding.</span>
-                    <p style="text-align:left; font-weight:500; margin-top:1em;">Ledige p-pladser</p>
-                    <div class="progress">
-                        @if (Model.AntalPPladserTilbage >= 26)
-                        {
-                            <div class="progress-bar-animated a"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
-                        }
-                        else
-                        {
-                            <div class="progress-bar-animated b"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
-                        }
+                <p style="text-align:left; font-weight:500; margin-top:1em;">Ledige p-pladser</p>
+                <div class="progress">
+                    @if (Model.AntalPPladserTilbage >= 26)
+                    {
+                        <div class="progress-bar-animated a"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
+                    }
+                    else
+                    {
+                        <div class="progress-bar-animated b"><p style="text-align: center; font-size: large; font-weight: 700; color: white">@Model.AntalPPladserTilbage</p></div>
+                    }
+                </div>
+                <div class="wrapper">
+                    <a href="#modalbox">Se togplan</a>
+                </div>
+                <div id="modalbox" class="modal">
+                    <div class="modalcontent">
+                        <img src="/Billeder/tog afgange ny.png" style="width:100%; height: 100%; padding: 2px; border-style:solid;">
+                        <a href="#" class="modalclose">&times;</a>
                     </div>
-                    <div class="wrapper">
-                        <a href="#modalbox">Se togplan</a>
-                    </div>
-                    <div id="modalbox" class="modal">
-                        <div class="modalcontent">
-                            <img src="/Billeder/tog afgange ny.png" style="width:100%; height: 100%; padding: 2px; border-style:solid;">
-                            <a href="#" class="modalclose">&times;</a>
-                        </div>
-                    </div>
+                </div>
             </div>
             <div style="display:inline-flex; align-items:center;">
                 <label class="control-label" style="font-weight: 500; margin-bottom: 5px;">Ønsker du at reservere en p-plads?</label>
-                <input asp-for="Booking.Parking" type="checkbox" name="Booking.Parking" value="true" style="width: 25px; height: 25px; margin-left:5px;" />
+                <input asp-for="Booking.Parking" type="checkbox" name="Booking.Parking" value="true" />
             </div>
             <div class="button">
                 <input type="submit" value="Tilmeld" />
@@ -283,64 +335,6 @@ form .user-details .input-box{
         </form>
     </div>
 </section>
-
-
-
-@*<h3>Udfyld oplysninger for at registrere dig som gæst til arrangementet</h3>
-<h5>@Model.Arrangement.Name | @Model.Arrangement.Date.ToShortDateString() | @Model.Arrangement.Department</h5>
-<hr />
-<div>
-    <h5 style="color:red">@Model.Message</h5>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Booking.Firstname" class="control-label">Fornavn</label>
-                <input asp-for="Booking.Firstname" class="form-control" />
-                <span asp-validation-for="Booking.Firstname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Booking.Lastname" class="control-label">Efternavn</label>
-                <input asp-for="Booking.Lastname" class="form-control" />
-                <span asp-validation-for="Booking.Lastname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Booking.Phone" class="control-label">Telefon nummer</label>
-                <input asp-for="Booking.Phone" class="form-control" />
-                <span asp-validation-for="Booking.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <p style="font-weight:700">Zealand tilbyder vores gæster en plads i vores VIP-Lounge på 2 sal, hvor der er mulighed for at tilvælge en frokostmenu.</p>
-                <label asp-for="Booking.Vip" class="control-label">Ønsker du at booke en plads i VIP-Loungen?</label>
-                <select name="Booking.Vip" asp-for="Booking.Vip" class="form-control">
-                    <option value="0">Nej tak</option>
-                    <option value="1">Ja tak - 100,-DKK</option>
-                    <option value="2">Ja tak + Normal menu - 150,-DKK</option>
-                    <option value="3">Ja tak + Vegansk menu - 175,-DKK</option>
-                    <option value="4">Ja tak + Normal menu & Champagne menu - 250,-DKK</option>
-                    <option value="4">Ja tak + Vegansk & Champagne menu - 275,-DKK</option>
-                </select>
-            </div>
-            <div>
-                <p style="font-weight:700">Her ses en oversigt af tog fra KBH-Roskilde omkring arrangment start & Roskilde-KBH omkring arrangement slut</p>
-                <img src="/Billeder/tog afgange ny.png" style="width:550px;">
-            </div>
-            <div class="form-group" style="padding-top:50px;">
-                <p style="font-weight:700">Zealand tilbyder vores gæster at booke en p-plads sammen med sin tilmelding, hvis man kommer i bil.</p>
-                <p style="color:red">BEMÆRK: Der kan være fuldt booket da der kun er plads til 90 biler på p-pladsen</p>
-                <label asp-for="Booking.Parking" class="control-label">Ønsker du at booke en p-plads?</label>
-                <p>@Html.RadioButtonFor(b => b.Booking.Parking, true) Ja | @Html.RadioButtonFor(b => b.Booking.Parking, false) Nej</p>
-            </div>
-
-            <div class="form-group">
-                <input style="background-color:green; color:white" type="submit" value="Tilmeld" class="btn btn-primary" /> |
-                <a asp-page="/Index" style="font-style:oblique; color:black"><i class="fa fa-reply" style="color:black; font-size:20px"></i> Tilbage</a>
-            </div>
-        </form>
-    </div>
-</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
