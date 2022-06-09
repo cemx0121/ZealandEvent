@@ -9,9 +9,9 @@
 <form class="text-center" method="post">
     <input style="margin-bottom:15px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på brugernavn efter en specifik bruger" /> <i class="fas fa-search"></i>
 </form>
-<table class="table">
+<table class="table" style="border-style:solid; border-width:3px; border-color:black;">
     <thead>
-        <tr style="background-color:lightgrey;">
+        <tr style="background-color:whitesmoke;">
             <th>
                 Brugernavn
             </th>
@@ -28,7 +28,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model.User) {
-        <tr style="background-color:whitesmoke;">
+        <tr style="background-color:white;">
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>

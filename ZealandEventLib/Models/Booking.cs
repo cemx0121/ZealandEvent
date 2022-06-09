@@ -19,10 +19,12 @@ namespace ZealandEventLib.Models
         [Required(ErrorMessage = "Fornavn skal udfyldes")]
         [StringLength(50)]
         [MinLength(2, ErrorMessage = "Et fornavn skal bestå af mindst 2 bogstaver")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Fornavn kan ikke indeholde tal")]
         public string Firstname { get; set; }
         [Required(ErrorMessage = "Efternavn skal udfyldes")]
         [StringLength(50)]
         [MinLength(2, ErrorMessage = "Et efternavn skal bestå af mindst 2 bogstaver")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Efternavn kan ikke indeholde tal")]
         public string Lastname { get; set; }
         [Required(ErrorMessage = "Telefon nummer skal udfyldes")]
         [StringLength(8)]

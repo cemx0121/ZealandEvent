@@ -56,7 +56,7 @@
 <h4>@Model.Arrangement.Department | @Model.Arrangement.Date.ToShortDateString()</h4>
 <h5>Tilmeldte</h5>
 <div class="progress">
-    @if (Model.AntalTilmeldte >= 100)
+    @if (Model.AntalTilmeldte >= 101)
     {
         <div class="progress-bar-animated a"><p style="text-align:center; font-size:large; font-weight:700; color:white">@Model.AntalTilmeldte</p></div>
     }
@@ -70,9 +70,9 @@
     <input style="margin-bottom:15px; width:30%" type="text" asp-for="SearchText" class="form-control" placeholder="Søg på navn efter specifikke bookinger" /> <i class="fas fa-search"></i>
 </form>
 <div>
-    <table class="table">
+    <table class="table" style="border-style:solid; border-width:3px; border-color:black;">
         <thead>
-            <tr style="background-color: lightgrey">
+            <tr style="background-color: whitesmoke">
                 <th>
                     Navn
                 </th>
@@ -91,7 +91,7 @@
             @foreach (var b in Model.Bookings)
             {
 
-                <tr style="background-color:whitesmoke">
+                <tr style="background-color:white">
                     <td>@b.Firstname @b.Lastname</td>
                     <td>@b.Phone</td>
                     @if (b.Vip == 0)
