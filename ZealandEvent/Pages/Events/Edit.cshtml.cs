@@ -61,7 +61,7 @@ namespace ZealandEvent.Pages.Events
             Event.Start = DateTime.Parse("2022-01-01 " + Event.Start.TimeOfDay);
             Event.End = DateTime.Parse("2022-01-01 " + Event.End.TimeOfDay);
 
-            if (_countService.CheckForDuplicateEvent(Event) != null)
+            if (_countService.CheckForDuplicateEvent(Event) != null && _countService.CheckForDuplicateEvent(Event).EventId != Event.EventId)
             {
                 Message = "Der findes allerede et event i samme tidsramme og lokation til dette arrangement! (Musikteltet & Tribunen kan ikke have et event i samme tidsramme)";
                 return Page();
